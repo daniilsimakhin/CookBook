@@ -15,8 +15,8 @@ final class OnboardingViewController: UIViewController {
 
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "Cooking")
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "OnboardingScreen")
         return imageView
     }()
     private let startButton = UIButton()
@@ -37,13 +37,14 @@ extension OnboardingViewController {
     }
     
     private func applyStyle() {
-        view.backgroundColor = #colorLiteral(red: 0.9977220893, green: 0.7536674142, blue: 0.6296645999, alpha: 1)
+        view.backgroundColor = Theme.beigeColor
         startButton.setTitle("  Get the recipes  ", for: [])
         startButton.layer.borderWidth = 3
         startButton.layer.cornerRadius = 10
-        startButton.layer.borderColor = #colorLiteral(red: 0.1421098113, green: 0.5987231135, blue: 0.4971868992, alpha: 1)
+        startButton.layer.borderColor = Theme.orangeColor
         startButton.titleLabel?.font = .boldSystemFont(ofSize: 35)
-        startButton.setTitleColor(#colorLiteral(red: 0.9977220893, green: 0.7536674142, blue: 0.6296645999, alpha: 1), for: .normal)
+        startButton.layer.backgroundColor = Theme.orangeColor
+        startButton.setTitleColor(.white, for: .normal)
     }
     
     private func applyLayout() {
@@ -59,7 +60,7 @@ extension OnboardingViewController {
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
         ])
     }
 }
@@ -80,7 +81,25 @@ extension OnboardingViewController {
                 print(error)
             }
         }
-        
         delegate?.didFinishOnboarding()
+    }
+}
+import SwiftUI
+struct ListProvider: PreviewProvider {
+    static var previews: some View {
+        ContainterView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainterView: UIViewControllerRepresentable {
+        let listVC = OnboardingViewController()
+        func makeUIViewController(context:
+                                  UIViewControllerRepresentableContext<ListProvider.ContainterView>) -> OnboardingViewController {
+            return listVC
+        }
+        
+        func updateUIViewController(_ uiViewController:
+                                    ListProvider.ContainterView.UIViewControllerType, context:
+                                    UIViewControllerRepresentableContext<ListProvider.ContainterView>) {
+        }
     }
 }

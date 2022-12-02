@@ -22,25 +22,14 @@ class RandomCollectionViewCell: UICollectionViewCell {
         setConstraints()
     }
     
-//    private let nameLabel: UILabel = {
-//       let label = UILabel()
-//        label.text = "Random Recipes!!!"
-//        label.textAlignment = .center
-//        label.font = .systemFont(ofSize: 16)
-//        label.textColor = .black
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func setupView() {
-        backgroundColor = #colorLiteral(red: 0.9977220893, green: 0.7536674142, blue: 0.6296645999, alpha: 1)
+        backgroundColor = Theme.beigeColor
         layer.cornerRadius = 10
         addSubview(randomImageView)
-//        addSubview(nameLabel)
     }
     
     func configureCell(imageName: String) {

@@ -22,7 +22,7 @@ class PopularViewController: UIViewController {
         let label = UILabel()
         label.text = "Sedan Cookbook"
         label.font = .boldSystemFont(ofSize: 40)
-        label.textColor = #colorLiteral(red: 0.1421098113, green: 0.5987231135, blue: 0.4971868992, alpha: 1)
+        label.textColor = Theme.grassColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,14 +33,13 @@ class PopularViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        
         setupViews()
         setConstraints()
         setDelegates()
     }
     
     private func setupViews() {
-        view.backgroundColor = #colorLiteral(red: 0.9843981862, green: 0.9893687367, blue: 0.9228379726, alpha: 1)
+        view.backgroundColor = Theme.beigeColor
         view.addSubview(headerLabel)
         view.addSubview(collectionView)
         collectionView.register(PopularCollectionViewCell.self,
@@ -51,14 +50,12 @@ class PopularViewController: UIViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "HeaderSupplementaryView")
         collectionView.collectionViewLayout = createLayout()
-        
     }
     
     private func setDelegates() {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
 }
 
 //MARK: - Create Layout
@@ -132,7 +129,6 @@ extension PopularViewController {
               elementKind: UICollectionView.elementKindSectionHeader,
               alignment: .top)
     }
-    
 }
 
 //MARK: - UICollectionViewDelegate
@@ -185,8 +181,6 @@ extension PopularViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
     }
-    
-    
 }
 
 //MARK: - Set Constraints
@@ -201,27 +195,5 @@ extension PopularViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10)
         ])
-    }
-}
-
-//MARK: - Live Preview
-#warning("delete before PR")
-import SwiftUI
-struct ListProvider: PreviewProvider {
-    static var previews: some View {
-        ContainterView().edgesIgnoringSafeArea(.all)
-    }
-    
-    struct ContainterView: UIViewControllerRepresentable {
-        let listVC = PopularViewController()
-        func makeUIViewController(context:
-                                  UIViewControllerRepresentableContext<ListProvider.ContainterView>) -> PopularViewController {
-            return listVC
-        }
-        
-        func updateUIViewController(_ uiViewController:
-                                    ListProvider.ContainterView.UIViewControllerType, context:
-                                    UIViewControllerRepresentableContext<ListProvider.ContainterView>) {
-        }
     }
 }

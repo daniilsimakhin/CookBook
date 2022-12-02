@@ -15,11 +15,11 @@ final class OnboardingViewController: UIViewController {
 
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
-        imageView.image = UIImage()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "Cooking")
         return imageView
     }()
-    private let startButton = UIButton(type: .system)
+    private let startButton = UIButton()
     
     weak var delegate: OnboardingViewControllerDelegate?
     
@@ -37,8 +37,13 @@ extension OnboardingViewController {
     }
     
     private func applyStyle() {
-        view.backgroundColor = .systemBackground
-        startButton.setTitle("Get the recipes", for: [])
+        view.backgroundColor = #colorLiteral(red: 0.9977220893, green: 0.7536674142, blue: 0.6296645999, alpha: 1)
+        startButton.setTitle("  Get the recipes  ", for: [])
+        startButton.layer.borderWidth = 3
+        startButton.layer.cornerRadius = 10
+        startButton.layer.borderColor = #colorLiteral(red: 0.1421098113, green: 0.5987231135, blue: 0.4971868992, alpha: 1)
+        startButton.titleLabel?.font = .boldSystemFont(ofSize: 35)
+        startButton.setTitleColor(#colorLiteral(red: 0.9977220893, green: 0.7536674142, blue: 0.6296645999, alpha: 1), for: .normal)
     }
     
     private func applyLayout() {

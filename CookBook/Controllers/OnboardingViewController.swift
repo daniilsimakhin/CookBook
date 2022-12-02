@@ -41,9 +41,9 @@ extension OnboardingViewController {
         startButton.setTitle("  Get the recipes  ", for: [])
         startButton.layer.borderWidth = 3
         startButton.layer.cornerRadius = 10
-        startButton.layer.borderColor = Theme.orangeColor
+        startButton.layer.borderColor = Theme.orangeColor.cgColor
         startButton.titleLabel?.font = .boldSystemFont(ofSize: 35)
-        startButton.layer.backgroundColor = Theme.orangeColor
+        startButton.layer.backgroundColor = Theme.orangeColor.cgColor
         startButton.setTitleColor(.white, for: .normal)
     }
     

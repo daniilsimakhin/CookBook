@@ -29,6 +29,16 @@
 		5AE1DEF129351C6E00665540 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */; };
 		5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */; };
 		5AE1DEF529352A1500665540 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF429352A1500665540 /* MainViewController.swift */; };
+		A528B7C529365419001812A4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C429365419001812A4 /* SearchViewController.swift */; };
+		A528B7C72936549A001812A4 /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C62936549A001812A4 /* SearchTableView.swift */; };
+		A528B7CA293662A0001812A4 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C9293662A0001812A4 /* SearchResults.swift */; };
+		A528B7CC2936638F001812A4 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7CB2936638F001812A4 /* SearchResult.swift */; };
+		A528B7CF293668E2001812A4 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */; };
+		A528B7D329366906001812A4 /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7D229366906001812A4 /* UITableViewCell+.swift */; };
+		A528B7D529366AB2001812A4 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7D429366AB2001812A4 /* UITableView+.swift */; };
+		A57D213E2938AB36007BDCC8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D213D2938AB36007BDCC8 /* ImageCache.swift */; };
+		A57D214029390D81007BDCC8 /* ImageLabelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */; };
+		A57D21422939F589007BDCC8 /* SearchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D21412939F589007BDCC8 /* SearchImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +66,16 @@
 		5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		5AE1DEF429352A1500665540 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A528B7C429365419001812A4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		A528B7C62936549A001812A4 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchTableView.swift; path = CookBook/Views/SearchScreen/SearchTableView.swift; sourceTree = SOURCE_ROOT; };
+		A528B7C9293662A0001812A4 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
+		A528B7CB2936638F001812A4 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		A528B7D229366906001812A4 /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		A528B7D429366AB2001812A4 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		A57D213D2938AB36007BDCC8 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelStack.swift; sourceTree = "<group>"; };
+		A57D21412939F589007BDCC8 /* SearchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +168,7 @@
 			children = (
 				5A9B529B2936C75700B88214 /* RecipesData.swift */,
 				5A9B52992936C2C100B88214 /* RecipesModel.swift */,
+				A528B7C829366291001812A4 /* SearchScreen */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,6 +176,7 @@
 		5AE1DEEA293509DE00665540 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A528B7CD293668C2001812A4 /* SearchScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,6 +184,7 @@
 		5AE1DEEB29350A0A00665540 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A528B7D629366F98001812A4 /* SearchScreen */,
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
 				373218502937BE4F000F7062 /* PopularViewController.swift */,
@@ -175,6 +198,7 @@
 				5AE1DEEE293510DA00665540 /* NetworkClient.swift */,
 				5A9B52972936C01600B88214 /* RecipesProvider.swift */,
 				5A9B529D2936C9FC00B88214 /* RecipesModelFromDataConverter.swift */,
+				A57D213D2938AB36007BDCC8 /* ImageCache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -182,9 +206,47 @@
 		5AE1DEED29350A6000665540 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A528B7D0293668F1001812A4 /* Extensions */,
 				5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A528B7C829366291001812A4 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A528B7C9293662A0001812A4 /* SearchResults.swift */,
+				A528B7CB2936638F001812A4 /* SearchResult.swift */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		A528B7CD293668C2001812A4 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A528B7C62936549A001812A4 /* SearchTableView.swift */,
+				A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */,
+				A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */,
+				A57D21412939F589007BDCC8 /* SearchImageView.swift */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		A528B7D0293668F1001812A4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A528B7D229366906001812A4 /* UITableViewCell+.swift */,
+				A528B7D429366AB2001812A4 /* UITableView+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A528B7D629366F98001812A4 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A528B7C429365419001812A4 /* SearchViewController.swift */,
+			);
+			path = SearchScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,12 +320,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A528B7CA293662A0001812A4 /* SearchResults.swift in Sources */,
 				37321857293814C8000F7062 /* CompMockData.swift in Sources */,
 				373218512937BE4F000F7062 /* PopularViewController.swift in Sources */,
 				3732185E29382AB6000F7062 /* HeaderSupplementaryView.swift in Sources */,
 				5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */,
+				A528B7D529366AB2001812A4 /* UITableView+.swift in Sources */,
+				A528B7C72936549A001812A4 /* SearchTableView.swift in Sources */,
 				5AE1DEE72935080D00665540 /* Theme.swift in Sources */,
 				5AE1DED02934F6D200665540 /* AppDelegate.swift in Sources */,
+				A57D21422939F589007BDCC8 /* SearchImageView.swift in Sources */,
+				A57D214029390D81007BDCC8 /* ImageLabelStack.swift in Sources */,
 				3732185C2938216C000F7062 /* PopularCollectionViewCell.swift in Sources */,
 				5AE1DED22934F6D200665540 /* SceneDelegate.swift in Sources */,
 				3732185929381DB4000F7062 /* RandomCollectionViewCell.swift in Sources */,
@@ -272,9 +339,14 @@
 				5AE1DEF529352A1500665540 /* MainViewController.swift in Sources */,
 				373218532937C07C000F7062 /* ListItem.swift in Sources */,
 				5A9B529A2936C2C100B88214 /* RecipesModel.swift in Sources */,
+				A57D213E2938AB36007BDCC8 /* ImageCache.swift in Sources */,
 				5A9B529E2936C9FC00B88214 /* RecipesModelFromDataConverter.swift in Sources */,
-				5AE1DEE82935080D00665540 /* APIKey.swift in Sources */,
 				5A9B529C2936C75700B88214 /* RecipesData.swift in Sources */,
+				A528B7CF293668E2001812A4 /* SearchTableViewCell.swift in Sources */,
+				5AE1DEE82935080D00665540 /* APIKey.swift in Sources */,
+				A528B7C529365419001812A4 /* SearchViewController.swift in Sources */,
+				A528B7D329366906001812A4 /* UITableViewCell+.swift in Sources */,
+				A528B7CC2936638F001812A4 /* SearchResult.swift in Sources */,
 				5AE1DEEF293510DA00665540 /* NetworkClient.swift in Sources */,
 				373218552937C130000F7062 /* ListSection.swift in Sources */,
 			);
@@ -417,7 +489,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 54TCRG7M8F;
+				DEVELOPMENT_TEAM = 65JLP27XM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookBook/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -431,7 +503,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sas.CookBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DaniilSimakhin.CookBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,7 +518,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 54TCRG7M8F;
+				DEVELOPMENT_TEAM = 65JLP27XM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookBook/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -460,7 +532,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sas.CookBook;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DaniilSimakhin.CookBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -64,8 +64,8 @@ final class FavoriteViewController: UIViewController {
     }
 }
 
-final class DetailViewController: UIViewController {
+final class SearchViewController: UIViewController {
     override func viewDidLoad() {
-        view.backgroundColor = .systemGreen
+        view.backgroundColor = .systemPurple
     }
 }

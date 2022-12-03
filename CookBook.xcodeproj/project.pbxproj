@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DB605A9293A3B1100019ACB /* IngredientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB605A8293A3B1100019ACB /* IngredientModel.swift */; };
+		4DEC344C29377454004CE14C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEC344B29377454004CE14C /* DetailViewController.swift */; };
+		4DF5497F293BD05E00423EEB /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF5497E293BD05E00423EEB /* DetailCell.swift */; };
 		373218512937BE4F000F7062 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373218502937BE4F000F7062 /* PopularViewController.swift */; };
 		373218532937C07C000F7062 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373218522937C07C000F7062 /* ListItem.swift */; };
 		373218552937C130000F7062 /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373218542937C130000F7062 /* ListSection.swift */; };
@@ -42,6 +45,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DB605A8293A3B1100019ACB /* IngredientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IngredientModel.swift; path = ../../../../../IngredientModel.swift; sourceTree = "<group>"; };
+		4DEC344B29377454004CE14C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4DF5497E293BD05E00423EEB /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		373218502937BE4F000F7062 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		373218522937C07C000F7062 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		373218542937C130000F7062 /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
@@ -89,6 +95,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DF5497D293BD05E00423EEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DF5497E293BD05E00423EEB /* DetailCell.swift */,
+			);
+			path = Views;
 		3732185A29381DBC000F7062 /* Cells + Compositional Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				5AE1DEE9293509CE00665540 /* Models */,
+				4DF5497D293BD05E00423EEB /* Views */,
 				5AE1DEEA293509DE00665540 /* Views */,
 				3732185A29381DBC000F7062 /* Cells + Compositional Layout */,
 				5AE1DEEB29350A0A00665540 /* Controllers */,
@@ -168,6 +181,7 @@
 			children = (
 				5A9B529B2936C75700B88214 /* RecipesData.swift */,
 				5A9B52992936C2C100B88214 /* RecipesModel.swift */,
+				4DB605A8293A3B1100019ACB /* IngredientModel.swift */,
 				A528B7C829366291001812A4 /* SearchScreen */,
 			);
 			path = Models;
@@ -187,6 +201,7 @@
 				A528B7D629366F98001812A4 /* SearchScreen */,
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
+				4DEC344B29377454004CE14C /* DetailViewController.swift */,
 				373218502937BE4F000F7062 /* PopularViewController.swift */,
 			);
 			path = Controllers;
@@ -320,6 +335,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DB605A9293A3B1100019ACB /* IngredientModel.swift in Sources */,
+				4DEC344C29377454004CE14C /* DetailViewController.swift in Sources */,
 				A528B7CA293662A0001812A4 /* SearchResults.swift in Sources */,
 				37321857293814C8000F7062 /* CompMockData.swift in Sources */,
 				373218512937BE4F000F7062 /* PopularViewController.swift in Sources */,
@@ -342,6 +359,7 @@
 				A57D213E2938AB36007BDCC8 /* ImageCache.swift in Sources */,
 				5A9B529E2936C9FC00B88214 /* RecipesModelFromDataConverter.swift in Sources */,
 				5A9B529C2936C75700B88214 /* RecipesData.swift in Sources */,
+				4DF5497F293BD05E00423EEB /* DetailCell.swift in Sources */,
 				A528B7CF293668E2001812A4 /* SearchTableViewCell.swift in Sources */,
 				5AE1DEE82935080D00665540 /* APIKey.swift in Sources */,
 				A528B7C529365419001812A4 /* SearchViewController.swift in Sources */,

@@ -12,14 +12,34 @@ protocol OnboardingViewControllerDelegate: AnyObject {
 }
 
 final class OnboardingViewController: UIViewController {
-
+    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "OnboardingScreen")
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "Onboarding")
         return imageView
     }()
     private let startButton = UIButton()
+    
+    private let screenLabel1: UILabel = {
+        let label = UILabel()
+        label.text = "Happy cooking!"
+        label.textColor = Theme.grassColor
+        label.font = .boldSystemFont(ofSize: 35)
+        return label
+    }()
+    
+    private let screenLabel2: UILabel = {
+        let label = UILabel()
+        label.text = """
+Discover millions of recipes
+ecxlusive in Cooksy Dance.
+"""
+        label.numberOfLines = 2
+        label.textColor = Theme.grassColor
+        label.font = .boldSystemFont(ofSize: 20)
+        return label
+    }()
     
     weak var delegate: OnboardingViewControllerDelegate?
     
@@ -42,13 +62,13 @@ extension OnboardingViewController {
         startButton.layer.borderWidth = 3
         startButton.layer.cornerRadius = 10
         startButton.layer.borderColor = Theme.orangeColor.cgColor
-        startButton.titleLabel?.font = .boldSystemFont(ofSize: 35)
+        startButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
         startButton.layer.backgroundColor = Theme.orangeColor.cgColor
         startButton.setTitleColor(.white, for: .normal)
     }
     
     private func applyLayout() {
-        [backgroundImageView, startButton].forEach { item in
+        [backgroundImageView, startButton, screenLabel1, screenLabel2].forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(item)
         }
@@ -59,8 +79,16 @@ extension OnboardingViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            startButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -35),
+            
+            screenLabel2.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -40),
+            screenLabel2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            
+            screenLabel1.bottomAnchor.constraint(equalTo: screenLabel2.topAnchor, constant: -15),
+            screenLabel1.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
+            
+            
         ])
     }
 }

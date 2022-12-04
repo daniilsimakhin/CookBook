@@ -14,7 +14,7 @@ struct RecipeViewModel{
 
 final class DetailViewController: UIViewController {
     // MARK: - Properties
-    private var ingredients = [IngredientProtocol]()
+    private var ingredients = [IngredientModel]()
     private var recipeInstructions = [RecipeViewModel]()
     var addedToFavourites = false
     private var isShowInstructions = false
@@ -180,12 +180,8 @@ extension DetailViewController{
         text: String = "",
         isEnabled: Bool = true,
         alpha: Float = 1){
-            button.isEnabled = true
-            button.alpha = CGFloat(alpha)
-            button.backgroundColor = .clear
             button.setTitleColor(.black, for: .normal)
             button.setTitle(text, for: .normal)
-            button.layer.cornerRadius = 0
             button.layer.borderWidth = 1
             button.layer.borderColor = CGColor(gray: 0.1, alpha: 1)
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -271,11 +267,11 @@ extension DetailViewController: UITableViewDataSource{
     // MARK: - Data loading
     private func loadIngredients() {
         ingredients.append(
-            IngredientModel(title: "1 cucumber", picture: UIImage(systemName: "carrot")!))
+            IngredientModel(title: "1 cucumber", picture: UIImage(systemName: "applelogo")!))
         ingredients.append(
-            IngredientModel(title: "1 tomato", picture: UIImage(systemName: "carrot")!))
+            IngredientModel(title: "1 tomato", picture: UIImage(systemName: "applelogo")!))
         ingredients.append(
-            IngredientModel(title: "1 tablespoon oil", picture: UIImage(systemName: "carrot")!))
+            IngredientModel(title: "1 tablespoon oil", picture: UIImage(systemName: "applelogo")!))
         ingredients.sort{ $0.title < $1.title }
     }
     
@@ -306,7 +302,7 @@ extension DetailViewController: UITableViewDataSource{
         }
         else {
             let ingredient = ingredients[indexPath.row]
-            cell.configure(ingredient: ingredient as! IngredientModel)
+            cell.configure(ingredient: ingredient)
         }
         return cell
     }

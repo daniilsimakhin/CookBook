@@ -63,9 +63,3 @@ final class FavoriteViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-
-final class SearchViewController: UIViewController {
-    override func viewDidLoad() {
-        view.backgroundColor = .systemPurple
-    }
-}

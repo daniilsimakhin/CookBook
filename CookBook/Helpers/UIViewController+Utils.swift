@@ -12,6 +12,10 @@ extension UIViewController {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.backgroundColor = Theme.appColor
+        navBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.font: Theme.cbNavBarTitleFont,
+            NSAttributedString.Key.foregroundColor: Theme.cbGreen80
+        ]
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
     }

@@ -38,7 +38,7 @@ private extension ImageLabelStack {
         alignment = .bottom
         distribution = .equalSpacing
         spacing = 5
-        backgroundColor = .systemGreen
+        backgroundColor = Theme.cbGreen50
         sizeToFit()
         isLayoutMarginsRelativeArrangement = true
         directionalLayoutMargins = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)

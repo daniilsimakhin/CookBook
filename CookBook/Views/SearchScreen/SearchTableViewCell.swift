@@ -6,7 +6,7 @@ final class SearchTableViewCell: UITableViewCell {
     
     private lazy var backView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemOrange.withAlphaComponent(0.5)
+        view.backgroundColor = Theme.cbYellow20
         view.clipsToBounds = true
         view.layer.cornerRadius = Theme.imageCornerRadius
         view.layer.cornerCurve = .continuous
@@ -30,7 +30,7 @@ final class SearchTableViewCell: UITableViewCell {
         view.alignment = .center
         view.distribution = .fillEqually
         view.axis = .horizontal
-        view.backgroundColor = .black.withAlphaComponent(0.35)
+        view.backgroundColor = Theme.cbGreen50
         view.layer.cornerRadius = Theme.buttonCornerRadius / 2
         view.layer.cornerCurve = .continuous
         view.layer.masksToBounds = true

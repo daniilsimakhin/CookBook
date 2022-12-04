@@ -12,10 +12,9 @@ final class SearchViewController: UIViewController {
         view.delegate = self
         view.showsCancelButton = false
         view.searchBarStyle = .minimal
-        view.placeholder = "Search Here....."
-        view.sizeToFit()
-        view.backgroundColor = .white
-        view.searchTextField.leftView?.tintColor = Theme.appColor
+        view.placeholder = "Search fun recipes"
+        view.searchTextField.leftView?.tintColor = Theme.cbYellow50
+        view.searchTextField.backgroundColor = Theme.appColor
         return view
     }()
     
@@ -28,8 +27,8 @@ final class SearchViewController: UIViewController {
 
 private extension SearchViewController {
     func setup() {
-        view.backgroundColor = .white
-        title = "Search"
+        //view.backgroundColor = .white
+        title = "Discover"
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

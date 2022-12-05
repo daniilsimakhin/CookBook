@@ -12,6 +12,7 @@ class SearchImageView: UIImageView {
         super.init(frame: frame)
         setup()
         setConstraints()
+        activityIndicator.startAnimating()
     }
     
     required init?(coder: NSCoder) {

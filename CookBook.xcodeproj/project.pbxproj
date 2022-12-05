@@ -32,6 +32,7 @@
 		5AE1DEF129351C6E00665540 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */; };
 		5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */; };
 		5AE1DEF529352A1500665540 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1DEF429352A1500665540 /* MainViewController.swift */; };
+		A5286E7B293D1DD8006A641E /* SearchTableViewMiniCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */; };
 		A528B7C529365419001812A4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C429365419001812A4 /* SearchViewController.swift */; };
 		A528B7C72936549A001812A4 /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C62936549A001812A4 /* SearchTableView.swift */; };
 		A528B7CA293662A0001812A4 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528B7C9293662A0001812A4 /* SearchResults.swift */; };
@@ -42,6 +43,7 @@
 		A57D213E2938AB36007BDCC8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D213D2938AB36007BDCC8 /* ImageCache.swift */; };
 		A57D214029390D81007BDCC8 /* ImageLabelStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */; };
 		A57D21422939F589007BDCC8 /* SearchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D21412939F589007BDCC8 /* SearchImageView.swift */; };
+		A5F571C7293E5C6900B4A7D1 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,7 @@
 		5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		5AE1DEF429352A1500665540 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewMiniCell.swift; sourceTree = "<group>"; };
 		A528B7C429365419001812A4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A528B7C62936549A001812A4 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchTableView.swift; path = CookBook/Views/SearchScreen/SearchTableView.swift; sourceTree = SOURCE_ROOT; };
 		A528B7C9293662A0001812A4 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		A57D213D2938AB36007BDCC8 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLabelStack.swift; sourceTree = "<group>"; };
 		A57D21412939F589007BDCC8 /* SearchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageView.swift; sourceTree = "<group>"; };
+		A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +230,7 @@
 			children = (
 				A528B7C9293662A0001812A4 /* SearchResults.swift */,
 				A528B7CB2936638F001812A4 /* SearchResult.swift */,
+				A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 		A528B7CD293668C2001812A4 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */,
 				A528B7C62936549A001812A4 /* SearchTableView.swift */,
 				A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */,
 				A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */,
@@ -334,6 +340,7 @@
 				37321857293814C8000F7062 /* CompMockData.swift in Sources */,
 				373218512937BE4F000F7062 /* PopularViewController.swift in Sources */,
 				3732185E29382AB6000F7062 /* HeaderSupplementaryView.swift in Sources */,
+				A5286E7B293D1DD8006A641E /* SearchTableViewMiniCell.swift in Sources */,
 				5AE1DEF3293525AD00665540 /* UIViewController+Utils.swift in Sources */,
 				A528B7D529366AB2001812A4 /* UITableView+.swift in Sources */,
 				A528B7C72936549A001812A4 /* SearchTableView.swift in Sources */,
@@ -355,6 +362,7 @@
 				5A9B529C2936C75700B88214 /* RecipesData.swift in Sources */,
 				4DF5497F293BD05E00423EEB /* DetailCell.swift in Sources */,
 				A528B7CF293668E2001812A4 /* SearchTableViewCell.swift in Sources */,
+				A5F571C7293E5C6900B4A7D1 /* SearchModel.swift in Sources */,
 				5AE1DEE82935080D00665540 /* APIKey.swift in Sources */,
 				A528B7C529365419001812A4 /* SearchViewController.swift in Sources */,
 				A528B7D329366906001812A4 /* UITableViewCell+.swift in Sources */,

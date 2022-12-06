@@ -11,6 +11,8 @@ struct RecipesData: Decodable {
     let recipes: [Recipe]?
     
     struct Recipe: Decodable {
+        let aggregateLikes: Int?
+        let extendedIngredients: [Ingredient]?
         let id: Int?
         let title: String?
         let readyInMinutes: Int?
@@ -34,5 +36,11 @@ struct RecipesData: Decodable {
     struct Length: Decodable {
         let number: Int?
         let unit: String?
+    }
+    
+    struct Ingredient: Decodable {
+        let id: Int?
+        let image: String?
+        let original: String?
     }
 }

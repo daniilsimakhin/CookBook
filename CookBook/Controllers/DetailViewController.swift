@@ -276,8 +276,8 @@ extension DetailViewController: UITableViewDataSource{
     }
     
     private func loadInstructions(){
-        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Clean and chop the vegatables", seconds: 120), isChecked: false))
-        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Add oil and seasonings", seconds: 60), isChecked: false))
+        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Clean and chop the vegatables", minutes: 2), isChecked: false))
+        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Add oil and seasonings", minutes: 1), isChecked: false))
     }
         
     // MARK: - Table properties

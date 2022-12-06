@@ -1,7 +1,7 @@
 import UIKit
 
-protocol SearchTableViewOutput: AnyObject {
-    func didPressedCell(_ indexPath: IndexPath)
+protocol SearchTableViewDelegate: AnyObject {
+    func didPressedCell(_ searchTableView: UITableView, by indexPath: IndexPath)
 }
 
 final class SearchTableView: UITableView {
@@ -10,7 +10,7 @@ final class SearchTableView: UITableView {
         case main
     }
     
-    weak var output: SearchTableViewOutput?
+    weak var output: SearchTableViewDelegate?
     var data: [SearchModel]?
     var source: UITableViewDiffableDataSource<Section, SearchModel>?
     
@@ -68,6 +68,6 @@ extension SearchTableView {
 
 extension SearchTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        output?.didPressedCell(indexPath)
+        output?.didPressedCell(self, by: indexPath)
     }
 }

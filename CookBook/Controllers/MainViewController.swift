@@ -42,28 +42,3 @@ extension MainViewController {
         tabBar.isTranslucent = false
     }
 }
-
-// TODO: - далее разделить на файлы
-
-final class FavoriteViewController: UIViewController {
-    private let startButton = UIButton(type: .system)
-    
-    override func viewDidLoad() {
-        view.backgroundColor = .systemOrange
-        title = "Favorite"
-        startButton.setTitle("Recipe", for: [])
-        startButton.addTarget(self, action: #selector(startButtonTapped), for: .primaryActionTriggered)
-        
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(startButton)
-        NSLayoutConstraint.activate([
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
-    @objc func startButtonTapped(_ sender: UIButton) {
-        let vc = DetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-}

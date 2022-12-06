@@ -77,7 +77,7 @@ extension DetailCell {
     
     func configure(recipeInstruction: RecipeViewModel){
         mainTextLabel.text = recipeInstruction.recipeInstruction.step
-        timeLabel.text = String(recipeInstruction.recipeInstruction.seconds / 60) + " min"
+        timeLabel.text = String(recipeInstruction.recipeInstruction.minutes) + " min"
         imageDetail.image = recipeInstruction.isChecked ? UIImage(systemName: "checkmark.square") : UIImage(systemName: "square")
     }
 }

@@ -2,7 +2,24 @@ import UIKit
 
 final class SearchTableViewMiniCell: UITableViewCell {
     
+    static let reuseID = String(describing: SearchTableViewMiniCell.self)
+    
     let networkClient = NetworkClient()
+    var recipe: SearchModel?
+    
+    private lazy var heartImage: UIImage? = {
+        let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+        let image = UIImage(systemName: "heart", withConfiguration: config)
+        return image
+    }()
+    
+    private lazy var heartFillImage: UIImage? = {
+        let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+        let image = UIImage(systemName: "heart.fill", withConfiguration: config)
+        return image
+    }()
+    
+    private var isChoosed: Bool = false
     
     private lazy var searchImageView: SearchImageView = {
         return SearchImageView(frame: .zero)
@@ -16,21 +33,14 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var likesStackView: ImageLabelStack = {
-        let view = ImageLabelStack()
-        view.setImageWithConfiguration(name: "hand.thumbsup.fill", configuration: UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline)))
-        view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        return view
-    }()
     private lazy var likeButton: UIButton = {
         let view = UIButton()
-        view.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))), for: .normal)
-        view.tintColor = .systemRed
+        view.setImage(heartImage, for: .normal)
+        view.tintColor = Theme.cbYellow50
         view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         view.sizeToFit()
         view.setTitleColor(.label, for: .normal)
-        view.layer.borderColor = UIColor.systemRed.cgColor
-        view.layer.borderWidth = 0.25
+        view.backgroundColor = Theme.cbGreen50
         view.layer.cornerRadius = 10
         view.layer.cornerCurve = .continuous
         view.layer.masksToBounds = true
@@ -50,6 +60,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
     
     override func prepareForReuse() {
         searchImageView.prepareForReuse()
+        likeButton.setImage(heartImage, for: .normal)
     }
 }
 
@@ -58,6 +69,12 @@ final class SearchTableViewMiniCell: UITableViewCell {
 extension SearchTableViewMiniCell {
     func configure(recipe: SearchModel?) {
         guard let recipe = recipe else { return }
+        self.recipe = recipe
+        if FavoriteRecipesStorage.shared.checkIsFavoriteRecipe(recipe.id) {
+            likeButton.setImage(heartFillImage, for: .normal)
+            isChoosed = true
+        }
+        
         recipeLabel.attributedText = recipe.recipeString
         likeButton.setTitle(" \(recipe.aggregateLikes)", for: .normal)
         networkClient.getImageFrom(stringUrl: recipe.image) { [weak self] image in
@@ -69,17 +86,11 @@ extension SearchTableViewMiniCell {
 // MARK: - Private func
 
 private extension SearchTableViewMiniCell {
-    var imageConfiguration: UIImage.Configuration {
-        let configuration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
-        return configuration
-    }
-    
-    @objc func favoriteButtonPressed(_ sender: UIButton!) {
-        if sender.image(for: .normal) == UIImage(systemName: "heart", withConfiguration: imageConfiguration) {
-            sender.setImage(UIImage(systemName: "heart.fill", withConfiguration: imageConfiguration), for: .normal)
-        } else {
-            sender.setImage(UIImage(systemName: "heart", withConfiguration: imageConfiguration), for: .normal)
-        }
+    @objc func favoriteButtonPressed(_ sender: UIButton) {
+        isChoosed.toggle()
+        let image = isChoosed ? heartFillImage : heartImage
+        likeButton.setImage(image, for: .normal)
+        FavoriteRecipesStorage.shared.addToFavorite(recipe, with: isChoosed)
     }
     
     private func setup() {

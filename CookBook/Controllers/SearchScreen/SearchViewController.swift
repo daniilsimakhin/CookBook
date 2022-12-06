@@ -22,7 +22,16 @@ final class SearchViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 
@@ -41,7 +50,6 @@ private extension SearchViewController {
     }
 }
 
-
 // MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
@@ -57,8 +65,9 @@ extension SearchViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchViewController: SearchTableViewOutput {
-    func didPressedCell(_ indexPath: IndexPath) {
+// MARK: - SearchTableViewDelegate
+extension SearchViewController: SearchTableViewDelegate {
+    func didPressedCell(_ searchTableView: UITableView, by indexPath: IndexPath) {
         let vc = DetailViewController()
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -1,5 +1,5 @@
 //
-//  RandomCollectionViewCell.swift
+//  PopularCollectionViewCell.swift
 //  CookBook
 //
 //  Created by Alexander Altman on 01.12.2022.
@@ -7,12 +7,10 @@
 
 import UIKit
 
-class RandomCollectionViewCell: UICollectionViewCell {
-   
+class VeganCollectionViewCell: UICollectionViewCell {
     private let randomImageView: UIImageView = {
        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "Cookbook_logo_trans")
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -27,9 +25,9 @@ class RandomCollectionViewCell: UICollectionViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Popular Meal"
+        label.text = "Random Meal"
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 20)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -47,7 +45,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
     }
     
     func setupView() {
-        clipsToBounds = true
+        backgroundColor = Theme.beigeColor
         layer.cornerRadius = 10
         addSubview(randomImageView)
         addSubview(backgroundTitleView)
@@ -60,7 +58,6 @@ class RandomCollectionViewCell: UICollectionViewCell {
     }
     
     func setConstraints() {
-        
         NSLayoutConstraint.activate([
             randomImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             randomImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),

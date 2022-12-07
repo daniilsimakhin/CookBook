@@ -12,7 +12,7 @@ enum Theme {
     static let cbNavBarTitleFont: UIFont = UIFont.preferredFont(forTextStyle: .headline).withSize(23)
     
     // MARK: - Colors
-    //static let appColor: UIColor = .systemTeal
+
     static let appColor: UIColor = UIColor(named: "cbWhite")!
     static let cbGreen50: UIColor = UIColor(named: "cbGreen50")!
     static let cbGreen80: UIColor = UIColor(named: "cbGreen80")!

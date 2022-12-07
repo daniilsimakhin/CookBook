@@ -9,13 +9,12 @@ import Foundation
 
 enum ListSection {
     case random([ListItem])
-    case popular([ListItem])
+    case vegan([ListItem])
     
     // Define sections
     var items: [ListItem] {
         switch self {
-        case .random(let items),
-                .popular(let items):
+        case .random(let items), .vegan(let items):
             return items
         }
     }
@@ -29,8 +28,8 @@ enum ListSection {
         switch self {
         case .random(_):
             return "Random Recipes"
-        case .popular(_):
-            return "Popular Recipes"
+        case .vegan(_):
+            return "Vegan Recipes"
         }
     }
 }

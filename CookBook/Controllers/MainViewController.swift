@@ -36,7 +36,6 @@ extension MainViewController {
 
     private func setupTabBar() {
         tabBar.clipsToBounds = true
-        
         tabBar.tintColor = Theme.cbGreen50
         tabBar.unselectedItemTintColor = Theme.cbYellow50
         tabBar.isTranslucent = false

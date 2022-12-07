@@ -24,8 +24,8 @@ final class OnboardingViewController: UIViewController {
     private let screenLabel1: UILabel = {
         let label = UILabel()
         label.text = "Happy cooking!"
-        label.textColor = Theme.grassColor
-        label.font = .boldSystemFont(ofSize: 35)
+        label.textColor = Theme.cbGreen80
+        label.font = .boldSystemFont(ofSize: 32)
         return label
     }()
     
@@ -33,11 +33,11 @@ final class OnboardingViewController: UIViewController {
         let label = UILabel()
         label.text = """
 Discover millions of recipes
-ecxlusive in Cooksy Dance.
+exclusive in Cooksy Dance.
 """
         label.numberOfLines = 2
-        label.textColor = Theme.grassColor
-        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = Theme.cbGreen80
+        label.font = .boldSystemFont(ofSize: 16)
         return label
     }()
     
@@ -62,9 +62,15 @@ extension OnboardingViewController {
         startButton.layer.borderWidth = 3
         startButton.layer.cornerRadius = 10
         startButton.layer.borderColor = Theme.orangeColor.cgColor
-        startButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        startButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
         startButton.layer.backgroundColor = Theme.orangeColor.cgColor
         startButton.setTitleColor(.white, for: .normal)
+        startButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        startButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        startButton.layer.shadowOpacity = 1.0
+        startButton.layer.shadowRadius = 0.0
+        startButton.layer.masksToBounds = false
+        startButton.layer.cornerRadius = 4.0
     }
     
     private func applyLayout() {
@@ -81,6 +87,8 @@ extension OnboardingViewController {
             
             startButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -35),
+            startButton.heightAnchor.constraint(equalToConstant: 40),
+            startButton.widthAnchor.constraint(equalToConstant: 141),
             
             screenLabel2.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -40),
             screenLabel2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),

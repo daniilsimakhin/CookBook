@@ -13,7 +13,7 @@ struct CompMockData {
     
     private let vegan: ListSection = {
         .vegan([
-            .init(title: "Vegan 1", image: "rmeal1"),
+            .init(title: "Vegan 1 Vegan 1 Vegan 1 Vegan 1 Vegan 1", image: "rmeal1"),
             .init(title: "Vegan 2", image: "rmeal2"),
             .init(title: "Vegan 3", image: "rmeal3"),
             .init(title: "Vegan 4", image: "rmeal4"),
@@ -24,7 +24,7 @@ struct CompMockData {
     
     private let random: ListSection = {
         .random([
-            .init(title: "Popular 1", image: "meal1"),
+            .init(title: "Popular 1 Popular 1 Popular 1 Popular 1 Popular 1", image: "meal1"),
             .init(title: "Popular 2", image: "meal2"),
             .init(title: "Popular 3", image: "meal3"),
             .init(title: "Popular 4", image: "meal4"),

@@ -8,29 +8,29 @@
 import UIKit
 
 class RandomCollectionViewCell: UICollectionViewCell {
-   
     private let randomImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "Cookbook_logo_trans")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let backgroundTitleView: UIView = {
        let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = Theme.cbWhite
         view.alpha = 0.6
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let nameLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Popular Meal"
+        label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.font = Theme.Fonts.cbRecipeTitle
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = Theme.cbText100
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,33 +47,36 @@ class RandomCollectionViewCell: UICollectionViewCell {
     }
     
     func setupView() {
-        clipsToBounds = true
+        //backgroundColor = Theme.appColor
         layer.cornerRadius = 10
+        layer.masksToBounds = true
+        
+        backgroundTitleView.addSubview(titleLabel)
+        
         addSubview(randomImageView)
         addSubview(backgroundTitleView)
-        addSubview(nameLabel)
     }
     
     func configureCell(mealLabel: String, imageName: String) {
-        nameLabel.text = mealLabel
+        titleLabel.text = mealLabel
         randomImageView.image = UIImage(named: imageName)
     }
     
     func setConstraints() {
-        
         NSLayoutConstraint.activate([
-            randomImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            randomImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            randomImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            randomImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            titleLabel.topAnchor.constraint(equalTo: backgroundTitleView.topAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: backgroundTitleView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: backgroundTitleView.trailingAnchor, constant: -8),
+            titleLabel.bottomAnchor.constraint(equalTo: backgroundTitleView.bottomAnchor, constant: -8),
             
-            backgroundTitleView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            backgroundTitleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            backgroundTitleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            backgroundTitleView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
+            randomImageView.topAnchor.constraint(equalTo: topAnchor),
+            randomImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            randomImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            randomImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            nameLabel.centerYAnchor.constraint(equalTo: backgroundTitleView.centerYAnchor),
-            nameLabel.centerXAnchor.constraint(equalTo: backgroundTitleView.centerXAnchor)
+            backgroundTitleView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundTitleView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundTitleView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 }

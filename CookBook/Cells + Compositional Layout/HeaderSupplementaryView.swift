@@ -13,9 +13,9 @@ class HeaderSupplementaryView: UICollectionReusableView {
         let label = UILabel()
         label.text = "header"
         label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 20)
-        label.textColor = Theme.grassColor
-        label.layer.cornerRadius = 5
+        label.font = Theme.Fonts.cbRecipeTitle
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = Theme.cbGreen50
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,7 +23,6 @@ class HeaderSupplementaryView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = Theme.appColor
         addSubview(headerLabel)
         setConstraints()
     }

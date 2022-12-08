@@ -12,12 +12,9 @@ class PopularViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .none
-        collectionView.bounces = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-    let navApp = UINavigationBarAppearance()
     
     private let sections = CompMockData.shared.pageData
     
@@ -30,15 +27,20 @@ class PopularViewController: UIViewController {
     
     private func setupViews() {
         title = "Popular Recipes"
-        view.backgroundColor = Theme.appColor
         view.addSubview(collectionView)
-        collectionView.register(RandomCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "RandomCollectionViewCell")
-        collectionView.register(VeganCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "VeganCollectionViewCell")
-        collectionView.register(HeaderSupplementaryView.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: "HeaderSupplementaryView")
+        collectionView.register(
+            RandomCollectionViewCell.self,
+            forCellWithReuseIdentifier: "RandomCollectionViewCell"
+        )
+        collectionView.register(
+            VeganCollectionViewCell.self,
+            forCellWithReuseIdentifier: "VeganCollectionViewCell"
+        )
+        collectionView.register(
+            HeaderSupplementaryView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "HeaderSupplementaryView"
+        )
         collectionView.collectionViewLayout = createLayout()
     }
     
@@ -56,6 +58,7 @@ extension PopularViewController {
         
         UICollectionViewCompositionalLayout { [weak self] sectionIndex, _ in
             guard let self = self else { return nil }
+            
             let section = self.sections[sectionIndex]
             switch section {
             case .random(_):
@@ -66,45 +69,63 @@ extension PopularViewController {
         }
     }
     
-    private func createLayoutSection(group: NSCollectionLayoutGroup,
-                                     behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior,
-                                     intergrouupSpacing: CGFloat,
-                                     supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem],
-                                     contentInsets: Bool) -> NSCollectionLayoutSection {
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = behavior
-        section.interGroupSpacing = intergrouupSpacing
-        section.boundarySupplementaryItems = supplementaryItems
-        section.supplementariesFollowContentInsets = contentInsets
-        return section
-    }
+    private func createLayoutSection(
+        group: NSCollectionLayoutGroup,
+        behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior,
+        intergrouupSpacing: CGFloat,
+        supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem],
+        contentInsets: Bool
+    ) -> NSCollectionLayoutSection {
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = behavior
+            section.interGroupSpacing = intergrouupSpacing
+            section.boundarySupplementaryItems = supplementaryItems
+            section.supplementariesFollowContentInsets = contentInsets
+            return section
+        }
     
     private func createRandomSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalWidth(1)))
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalWidth(1)
+            )
+        )
         
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.9),
-                                                                         heightDimension: .fractionalWidth(1)),
-                                                       subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(0.9),
+                heightDimension: .fractionalWidth(1)
+            ),
+            subitems: [item]
+        )
         
         let section = createLayoutSection(
             group: group,
             behavior: .groupPaging,
             intergrouupSpacing: 15,
-            supplementaryItems: [supplementaryHeaderItem()],
+            supplementaryItems: [],
             contentInsets: false
         )
-        section.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 0)
+        section.contentInsets = .init(top: 30, leading: 10, bottom: 10, trailing: 10)
         return section
     }
     
     private func createVeganSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                            heightDimension: .fractionalWidth(1)))
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalWidth(1)
+            )
+        )
         
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.5),
-                                                                         heightDimension: .fractionalWidth(0.55)),
-                                                       subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(0.47),
+                heightDimension: .fractionalWidth(0.5)
+            ),
+            subitems: [item]
+        )
         
         let section = createLayoutSection(
             group: group,
@@ -113,24 +134,24 @@ extension PopularViewController {
             supplementaryItems: [supplementaryHeaderItem()],
             contentInsets: false
         )
-        section.contentInsets = .init(top: 0, leading: 5, bottom: 0, trailing: 0)
+        section.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
         return section
     }
     
-    
-    
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
-        .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                heightDimension: .estimated(30)),
-              elementKind: UICollectionView.elementKindSectionHeader,
-              alignment: .top)
+        .init(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .estimated(40)
+            ),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
     }
 }
 
 //MARK: - UICollectionViewDelegate
-extension PopularViewController: UICollectionViewDelegate {
-    
-}
+extension PopularViewController: UICollectionViewDelegate { }
 
 //MARK: - UICollectionViewDataSource
 extension PopularViewController: UICollectionViewDataSource {
@@ -173,9 +194,11 @@ extension PopularViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: "HeaderSupplementaryView",
-                                                                         for: indexPath) as! HeaderSupplementaryView
+            let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: "HeaderSupplementaryView",
+                for: indexPath
+            ) as! HeaderSupplementaryView
             header.configureHeader(categoryName: sections[indexPath.section].title)
             return header
         default:
@@ -188,13 +211,10 @@ extension PopularViewController: UICollectionViewDataSource {
 extension PopularViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
-//            headerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            headerLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6),
-            
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

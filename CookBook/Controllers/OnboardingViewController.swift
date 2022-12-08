@@ -12,6 +12,8 @@ protocol OnboardingViewControllerDelegate: AnyObject {
 }
 
 final class OnboardingViewController: UIViewController {
+    private let mainStackView = UIStackView()
+    private let labelsStackView = UIStackView()
     
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -19,25 +21,36 @@ final class OnboardingViewController: UIViewController {
         imageView.image = UIImage(named: "Onboarding")
         return imageView
     }()
-    private let startButton = UIButton()
+    private let startButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = Theme.cbYellow50
+        button.contentEdgeInsets = UIEdgeInsets(top: 4, left: 5, bottom: 0, right: 5)
+        button.setTitle("Get the recipes", for: [])
+        button.titleLabel?.font = Theme.Fonts.cbOnboardingButtonTitleFont
+        button.setTitleColor(Theme.appColor, for: .normal)
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        return button
+    }()
     
     private let screenLabel1: UILabel = {
         let label = UILabel()
         label.text = "Happy cooking!"
         label.textColor = Theme.cbGreen80
-        label.font = .boldSystemFont(ofSize: 32)
+        label.font = Theme.Fonts.cbOnboardingTitleFont
         return label
     }()
     
     private let screenLabel2: UILabel = {
         let label = UILabel()
-        label.text = """
-Discover millions of recipes
-exclusive in Cooksy Dance.
-"""
+        label.text =
+        """
+        Discover millions of fun recipes
+        exclusive in Cooksy Dance.
+        """
         label.numberOfLines = 2
         label.textColor = Theme.cbGreen80
-        label.font = .boldSystemFont(ofSize: 16)
+        label.font = Theme.Fonts.cbOnboardingLableFont
         return label
     }()
     
@@ -57,24 +70,27 @@ extension OnboardingViewController {
     }
     
     private func applyStyle() {
-        view.backgroundColor = Theme.beigeColor
-        startButton.setTitle("  Get the recipes  ", for: [])
-        startButton.layer.borderWidth = 3
-        startButton.layer.cornerRadius = 10
-        startButton.layer.borderColor = Theme.orangeColor.cgColor
-        startButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        startButton.layer.backgroundColor = Theme.orangeColor.cgColor
-        startButton.setTitleColor(.white, for: .normal)
-        startButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        startButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        startButton.layer.shadowOpacity = 1.0
-        startButton.layer.shadowRadius = 0.0
-        startButton.layer.masksToBounds = false
-        startButton.layer.cornerRadius = 4.0
+        view.backgroundColor = Theme.appColor
     }
     
     private func applyLayout() {
-        [backgroundImageView, startButton, screenLabel1, screenLabel2].forEach { item in
+        arrangeStackView(
+            for: labelsStackView,
+               subviews: [screenLabel1, screenLabel2],
+               spacing: 10,
+               axis: .vertical,
+               aligment: .leading
+        )
+        
+        arrangeStackView(
+            for: mainStackView,
+               subviews: [labelsStackView, startButton],
+               spacing: 30,
+               axis: .vertical,
+               aligment: .leading
+        )
+        
+        [backgroundImageView, mainStackView].forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(item)
         }
@@ -85,17 +101,32 @@ extension OnboardingViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            startButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -35),
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -44),
+
             startButton.heightAnchor.constraint(equalToConstant: 40),
             startButton.widthAnchor.constraint(equalToConstant: 141),
-            
-            screenLabel2.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -40),
-            screenLabel2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            
-            screenLabel1.bottomAnchor.constraint(equalTo: screenLabel2.topAnchor, constant: -15),
-            screenLabel1.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30)
         ])
+    }
+    
+    private func arrangeStackView(
+        for stackView: UIStackView,
+        subviews: [UIView],
+        spacing: CGFloat = 0,
+        axis: NSLayoutConstraint.Axis = .horizontal,
+        distribution: UIStackView.Distribution = .fill,
+        aligment: UIStackView.Alignment = .fill
+    ) {
+        stackView.axis = axis
+        stackView.spacing = spacing
+        stackView.distribution = distribution
+        stackView.alignment = aligment
+        
+        subviews.forEach { item in
+            item.translatesAutoresizingMaskIntoConstraints = false
+            stackView.addArrangedSubview(item)
+        }
     }
 }
 

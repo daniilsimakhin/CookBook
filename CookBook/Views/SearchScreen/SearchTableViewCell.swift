@@ -101,7 +101,8 @@ extension SearchTableViewCell {
         timePreparingLabel.attributedText = setAttributedString(String(recipe.readyInMinutes), "Min")
         
         likesStackView.configure(count: recipe.aggregateLikes)
-        networkClient.getImageFrom(stringUrl: recipe.image) { [weak self] image in
+        let loader = NetworkLoader(networkClient: networkClient)
+        loader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in
             self?.searchImageView.configure(image: image)
         }
     }

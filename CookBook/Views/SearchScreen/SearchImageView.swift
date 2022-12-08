@@ -45,9 +45,11 @@ private extension SearchImageView {
 // MARK: - Public func
 
 extension SearchImageView {
-    func configure(image: UIImage) {
-        self.image = image
-        activityIndicator.stopAnimating()
+    func configure(image: UIImage?) {
+        DispatchQueue.main.async {
+            self.image = image
+            self.activityIndicator.stopAnimating()            
+        }
     }
     
     func prepareForReuse() {

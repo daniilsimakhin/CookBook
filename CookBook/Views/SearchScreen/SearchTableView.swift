@@ -1,6 +1,7 @@
 import UIKit
 
 protocol SearchTableViewDelegate: AnyObject {
+    func scrollViewDidScroll(scrollView: UIScrollView!)
     func didPressedCell(_ searchTableView: UITableView, by indexPath: IndexPath)
 }
 
@@ -69,5 +70,9 @@ extension SearchTableView {
 extension SearchTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         output?.didPressedCell(self, by: indexPath)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        output?.scrollViewDidScroll(scrollView: scrollView)
     }
 }

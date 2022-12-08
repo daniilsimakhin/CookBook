@@ -9,17 +9,15 @@ struct SearchModel: Hashable {
     let calories: Int
     let ingredients: Int
     
-    var recipeString: NSAttributedString {
-        let recipeString = title + " \n"
+    var subTitleAttributedString: NSAttributedString {
         let ingidientsString = "\(ingredients) Ingrediens\n"
         let caloriesString = "\(calories) Calories\n"
         let timeString = "\(readyInMinutes) Minutes"
         
-        let attributedString = NSMutableAttributedString(string: recipeString + ingidientsString + caloriesString + timeString)
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .headline), range: NSMakeRange(0, recipeString.count))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(recipeString.count + ingidientsString.count - 11, 10))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(recipeString.count + ingidientsString.count + caloriesString.count - 9, 8))
-        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(recipeString.count + ingidientsString.count + caloriesString.count + timeString.count - 7, 7))
+        let attributedString = NSMutableAttributedString(string: ingidientsString + caloriesString + timeString)
+        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(ingidientsString.count - 11, 10))
+        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(ingidientsString.count + caloriesString.count - 9, 8))
+        attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .footnote), range: NSMakeRange(ingidientsString.count + caloriesString.count + timeString.count - 7, 7))
         return attributedString
     }
     

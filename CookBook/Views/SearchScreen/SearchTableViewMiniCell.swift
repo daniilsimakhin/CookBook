@@ -24,10 +24,23 @@ final class SearchTableViewMiniCell: UITableViewCell {
     private lazy var searchImageView: SearchImageView = {
         return SearchImageView(frame: .zero)
     }()
-    private lazy var recipeLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         var view = UILabel()
         view.text = "Title"
-        view.numberOfLines = 4
+        view.numberOfLines = 2
+        view.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        view.setContentHuggingPriority(.defaultLow, for: .vertical)
+        view.font = .preferredFont(forTextStyle: .headline)
+        view.adjustsFontForContentSizeCategory = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private lazy var subTitleLabel: UILabel = {
+        var view = UILabel()
+        view.text = "SubTitle"
+        view.numberOfLines = 3
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        view.setContentHuggingPriority(.defaultHigh, for: .vertical)
         view.font = .preferredFont(forTextStyle: .headline)
         view.adjustsFontForContentSizeCategory = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -75,9 +88,11 @@ extension SearchTableViewMiniCell {
             isChoosed = true
         }
         
-        recipeLabel.attributedText = recipe.recipeString
+        titleLabel.text = recipe.title
+        subTitleLabel.attributedText = recipe.subTitleAttributedString
         likeButton.setTitle(" \(recipe.aggregateLikes)", for: .normal)
-        networkClient.getImageFrom(stringUrl: recipe.image) { [weak self] image in
+        let loader = NetworkLoader(networkClient: networkClient)
+        loader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in
             self?.searchImageView.configure(image: image)
         }
     }
@@ -103,17 +118,24 @@ private extension SearchTableViewMiniCell {
             searchImageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -Theme.topOffset),
         ])
         
-        contentView.addSubview(recipeLabel)
+        contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            recipeLabel.topAnchor.constraint(equalTo: searchImageView.topAnchor),
-            recipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.leftOffset / 2),
-            recipeLabel.bottomAnchor.constraint(equalTo: searchImageView.bottomAnchor),
-            recipeLabel.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant:  Theme.leftOffset / 2)
+            titleLabel.topAnchor.constraint(equalTo: searchImageView.topAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.leftOffset / 2),
+            titleLabel.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant:  Theme.leftOffset / 2)
+        ])
+        
+        contentView.addSubview(subTitleLabel)
+        NSLayoutConstraint.activate([
+            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.leftOffset / 2),
+            subTitleLabel.bottomAnchor.constraint(equalTo: searchImageView.bottomAnchor),
+            subTitleLabel.leadingAnchor.constraint(equalTo: searchImageView.trailingAnchor, constant:  Theme.leftOffset / 2)
         ])
 
         contentView.addSubview(likeButton)
         NSLayoutConstraint.activate([
-            likeButton.bottomAnchor.constraint(equalTo: recipeLabel.bottomAnchor),
+            likeButton.bottomAnchor.constraint(equalTo: subTitleLabel.bottomAnchor),
             likeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.leftOffset / 2),
         ])
     }

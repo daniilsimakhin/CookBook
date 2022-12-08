@@ -13,7 +13,7 @@ extension UIViewController {
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.backgroundColor = Theme.appColor
         navBarAppearance.titleTextAttributes = [
-            NSAttributedString.Key.font: Theme.cbNavBarTitleFont,
+            NSAttributedString.Key.font: Theme.Fonts.cbNavBarTitleFont,
             NSAttributedString.Key.foregroundColor: Theme.cbGreen80
         ]
         UINavigationBar.appearance().standardAppearance = navBarAppearance

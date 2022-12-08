@@ -19,6 +19,7 @@
 		5A563B29293EE3B900076C37 /* FavoriteRecipesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A563B28293EE3B900076C37 /* FavoriteRecipesStorage.swift */; };
 		5A563B2B293F00B900076C37 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A563B2A293F00B900076C37 /* FavoriteViewController.swift */; };
 		5A563B2D293F01FF00076C37 /* FavoriteRecipesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A563B2C293F01FF00076C37 /* FavoriteRecipesDataSource.swift */; };
+		5A71116B29411CC700BA3160 /* UIFont+Traits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A71116A29411CC700BA3160 /* UIFont+Traits.swift */; };
 		5A8D54C0293C51A900748AA6 /* IngredientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8D54BF293C51A900748AA6 /* IngredientModel.swift */; };
 		5A9B529529361A8700B88214 /* Example.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A9B529429361A8700B88214 /* Example.json */; };
 		5A9B52982936C01600B88214 /* RecipesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B52972936C01600B88214 /* RecipesProvider.swift */; };
@@ -62,6 +63,7 @@
 		5A563B28293EE3B900076C37 /* FavoriteRecipesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipesStorage.swift; sourceTree = "<group>"; };
 		5A563B2A293F00B900076C37 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		5A563B2C293F01FF00076C37 /* FavoriteRecipesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipesDataSource.swift; sourceTree = "<group>"; };
+		5A71116A29411CC700BA3160 /* UIFont+Traits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Traits.swift"; sourceTree = "<group>"; };
 		5A8D54BF293C51A900748AA6 /* IngredientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientModel.swift; sourceTree = "<group>"; };
 		5A9B529429361A8700B88214 /* Example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Example.json; sourceTree = "<group>"; };
 		5A9B52972936C01600B88214 /* RecipesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesProvider.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			children = (
 				A528B7D0293668F1001812A4 /* Extensions */,
 				5AE1DEF2293525AD00665540 /* UIViewController+Utils.swift */,
+				5A71116A29411CC700BA3160 /* UIFont+Traits.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				4DF5497F293BD05E00423EEB /* DetailCell.swift in Sources */,
 				A528B7CF293668E2001812A4 /* SearchTableViewCell.swift in Sources */,
 				A5F571C7293E5C6900B4A7D1 /* SearchModel.swift in Sources */,
+				5A71116B29411CC700BA3160 /* UIFont+Traits.swift in Sources */,
 				5AE1DEE82935080D00665540 /* APIKey.swift in Sources */,
 				A528B7C529365419001812A4 /* SearchViewController.swift in Sources */,
 				A528B7D329366906001812A4 /* UITableViewCell+.swift in Sources */,

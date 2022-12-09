@@ -26,7 +26,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Popular Meal"
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.font = Theme.Fonts.cbRecipeTitle
         label.adjustsFontForContentSizeCategory = true

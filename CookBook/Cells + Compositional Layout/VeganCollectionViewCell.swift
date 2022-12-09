@@ -26,7 +26,7 @@ class VeganCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Random Meal"
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.font = Theme.Fonts.cbRecipeTitleSmall
         label.adjustsFontForContentSizeCategory = true

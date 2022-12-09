@@ -7,36 +7,60 @@
 
 import UIKit
 
-struct RecipeViewModel{
-    let recipeInstruction: RecipesModel.Instruction
-    var isChecked: Bool
-}
-
 final class DetailViewController: UIViewController {
-    // MARK: - Properties
-    private var ingredients = [IngredientModel]()
-    private var recipeInstructions = [RecipeViewModel]()
-    var addedToFavourites = false
-    private var isShowInstructions = false
-    var selectedIndex = IndexPath(row: -1, section: 0)
-    
     // MARK: - UI elements
     private let mainStackView = UIStackView()
-    private let previewImageView = UIView()
     
-    private let recipeImageView = UIImageView(image: UIImage(named: "test_recipe_image"))
-    private let shadowImageView = UIImageView(image: UIImage(named: "shadow"))
-    
-    private let recipeTableView = UITableView(frame: .zero, style: .plain)
-    private let recipeNameLabel = UILabel()
-    
-    private let detailStackView = UIStackView()
+    private let recipeImageView = UIImageView()
     
     private let buttonsStackView = UIStackView()
     private let ingredientsButton = UIButton()
     private let instructionsButton = UIButton()
+    
+    private let counterLabel = UILabel()
+    private let recipeTableView = UITableView(frame: .zero, style: .plain)
+        
+    // MARK: - Properties
+    let recipe: DetailRecipeModel
+    let dataSourceIngredients: IngredientsDataSource
+    let dataSourceSteps: InstructionsDataSource
 
-    private lazy var addToFavouritesButton = UIButton()
+    let networkLoader = NetworkLoader(networkClient: NetworkClient())
+    
+    private var isShowInstructions = false {
+        didSet {
+            recipeTableView.dataSource = isShowInstructions ? dataSourceSteps : dataSourceIngredients
+            recipeTableView.reloadData()
+            
+            let count = recipeTableView.numberOfRows(inSection: 0)
+            var text = ""
+            switch count {
+            case 0:
+                text = isShowInstructions ? "No instructions" : "No ingredients"
+            case 1:
+                text = isShowInstructions ? "1 step" : "1 item"
+            default:
+                text = "\(count) \(isShowInstructions ? "steps" : "items")"
+            }
+            counterLabel.text = text
+            
+            let activeButton = isShowInstructions ? instructionsButton : ingredientsButton
+            let noActiveButton = !isShowInstructions ? instructionsButton : ingredientsButton
+            applyStyleToActiveButton(for: activeButton)
+            applyStyleToUnactiveButton(for: noActiveButton)
+        }
+    }
+    
+    init(with recipe: DetailRecipeModel) {
+        self.recipe = recipe
+        dataSourceIngredients = .init(ingredients: recipe.ingredients)
+        dataSourceSteps = .init(instructions: recipe.steps)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -44,148 +68,107 @@ final class DetailViewController: UIViewController {
         applyStyle()
         applyLayout()
         
-        loadIngredients()
-        loadInstructions()
-        recipeTableView.dataSource = self
-        recipeTableView.delegate = self
-    }
-}
-// MARK: - Actions
-extension DetailViewController{
-    @objc private func addToFavourites() {
-        addedToFavourites = !addedToFavourites
-        let imageName = (addedToFavourites) ? "heart.fill" : "heart"
-        addToFavouritesButton.setImage(UIImage(systemName: imageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)), for: .normal)
-    }
-    
-    @objc private func ingredientsButtonClicked() {
-        isShowInstructions = false
-        instructionsButton.alpha = 0.5
-        ingredientsButton.alpha = 1
-        recipeTableView.reloadData()
-    }
-    
-    @objc private func instructionsButtonClicked() {
         isShowInstructions = true
-        instructionsButton.alpha = 1
-        ingredientsButton.alpha = 0.5
-        recipeTableView.reloadData()
     }
 }
+
 
 // MARK: - Style, layout and setup
 extension DetailViewController{
-    private func setup(){
-        recipeTableView.register(DetailCell.self, forCellReuseIdentifier: DetailCell.reuseID)
-
-        addToFavouritesButton.addTarget(self, action: #selector(addToFavourites), for: .touchUpInside)
+    private func setup() {
+        networkLoader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in
+            self?.recipeImageView.image = image
+        }
         
-        ingredientsButton.addTarget(self, action:  #selector(ingredientsButtonClicked), for: .touchUpInside)
-        instructionsButton.addTarget(self, action:  #selector(instructionsButtonClicked), for: .touchUpInside)
+        setupTableView()
+        ingredientsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
+        instructionsButton.addTarget(self, action:  #selector(ButtonClicked), for: .touchUpInside)
     }
     
-    private func applyStyle(){
+    private func applyStyle() {
         applyStyleToImageView(for: recipeImageView)
-        applyStyleToImageView(for: shadowImageView)
-        
-        recipeTableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        recipeNameLabel.text = "Simple salad"
-        recipeNameLabel.textColor = .white
-        recipeNameLabel.numberOfLines = 1
-        recipeNameLabel.minimumScaleFactor = 0.5
-        recipeNameLabel.font = UIFont.systemFont(ofSize: 27, weight: .semibold)
-        recipeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        detailStackView.axis = .horizontal
-        detailStackView.alignment = .center
-        detailStackView.distribution = .equalSpacing
-        
-        addToFavouritesButton.setImage(UIImage(systemName: (addedToFavourites) ? "heart.fill" : "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)), for: .normal)
-        addToFavouritesButton.tintColor = .white
-        addToFavouritesButton.translatesAutoresizingMaskIntoConstraints = false
-        
+                
         applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
-        applyStyleToSwitchButton(for: instructionsButton, text: "Recipe", alpha: 0.5)
-
-        previewImageView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        applyStyleToSwitchButton(for: instructionsButton, text: "Recipe")
+        
+        applyStyleToLabel(for: counterLabel)
     }
     
-    private func applyLayout(){
-        previewImageView.addSubview(recipeImageView)
-        previewImageView.addSubview(shadowImageView)
-        previewImageView.addSubview(recipeNameLabel)
-        constructStackView()
-        previewImageView.addSubview(detailStackView)
-        previewImageView.addSubview(addToFavouritesButton)
-        
+    private func applyLayout() {
         arrangeStackView(
             for: buttonsStackView,
             subviews: [ingredientsButton, instructionsButton],
+            spacing: 24,
             axis: .horizontal,
             distribution: .fillEqually
         )
         
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
         arrangeStackView(
             for: mainStackView,
-            subviews: [previewImageView, buttonsStackView, recipeTableView],
-            spacing: 0
+            subviews: [recipeImageView, buttonsStackView, counterLabel, recipeTableView],
+            spacing: 20
         )
         
-        
         view.addSubview(mainStackView)
-
+        
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
-            previewImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            previewImageView.heightAnchor.constraint(equalToConstant: 350),
+            recipeImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3),
             
-            recipeImageView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
-            recipeImageView.bottomAnchor.constraint(equalTo: previewImageView.bottomAnchor),
-            recipeImageView.topAnchor.constraint(equalTo: previewImageView.topAnchor),
-
-            shadowImageView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
-            shadowImageView.bottomAnchor.constraint(equalTo: recipeImageView.bottomAnchor),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: 44)
             
-            recipeNameLabel.widthAnchor.constraint(equalTo: previewImageView.widthAnchor, constant: -40),
-            recipeNameLabel.topAnchor.constraint(equalTo: previewImageView.topAnchor, constant: 220),
-            recipeNameLabel.leadingAnchor.constraint(equalTo: previewImageView.leadingAnchor, constant: 25),
-            
-            detailStackView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
-            detailStackView.bottomAnchor.constraint(equalTo: recipeImageView.bottomAnchor),
-            detailStackView.widthAnchor.constraint(equalTo: recipeNameLabel.widthAnchor),
-            detailStackView.heightAnchor.constraint(equalToConstant: 80),
-            
-            buttonsStackView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor, multiplier: 1),
-            
-            addToFavouritesButton.trailingAnchor.constraint(equalTo: previewImageView.trailingAnchor, constant: -20),
-            addToFavouritesButton.topAnchor.constraint(equalTo: previewImageView.topAnchor, constant: 20),
         ])
     }
     
     // MARK: - Supporting methods
-    private func applyStyleToImageView(for imageView: UIImageView){
-        imageView.contentMode = .scaleAspectFit
+    private func applyStyleToActiveButton(for button: UIButton) {
+        button.isEnabled = false
+        button.layer.backgroundColor = Theme.cbYellow50.cgColor
+        button.setTitleColor(.white, for: .normal)
+        button.layer.shadowColor = UIColor(red: 255/255, green: 100/255, blue: 51/255, alpha: 0.29).cgColor
+        button.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        button.layer.shadowOpacity = 1.0
+        button.layer.shadowRadius = 3.0
+        button.layer.masksToBounds = false
+    }
+    
+    private func applyStyleToUnactiveButton(for button: UIButton) {
+        button.isEnabled = true
+        button.layer.backgroundColor = Theme.cbYellow20.cgColor
+        button.setTitleColor(Theme.cbYellow50, for: .normal)
+        button.layer.shadowOpacity = 0.0
+    }
+    
+    private func applyStyleToImageView(for imageView: UIImageView) {
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = Theme.imageCornerRadius
+        imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func applyStyleToLabel(for label: UILabel) {
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 25, weight: .medium)
     }
     
     private func applyStyleToSwitchButton(
         for button: UIButton,
         text: String = "",
         isEnabled: Bool = true,
-        alpha: Float = 1){
-            button.setTitleColor(.black, for: .normal)
-            button.setTitle(text, for: .normal)
-            button.layer.borderWidth = 1
-            button.layer.borderColor = CGColor(gray: 0.1, alpha: 1)
-            button.translatesAutoresizingMaskIntoConstraints = false
-        }
+        alpha: Float = 1
+    ) {
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle(text, for: .normal)
+        button.layer.cornerRadius = 10
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
+        button.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private func arrangeStackView(
         for stackView: UIStackView,
@@ -194,122 +177,52 @@ extension DetailViewController{
         axis: NSLayoutConstraint.Axis = .vertical,
         distribution: UIStackView.Distribution = .fill,
         aligment: UIStackView.Alignment = .fill
-        ) {
-            stackView.axis = axis
-            stackView.spacing = spacing
-            stackView.distribution = distribution
-            stackView.alignment = aligment
-            
-            subviews.forEach { item in
-                item.translatesAutoresizingMaskIntoConstraints = false
-                stackView.addArrangedSubview(item)
-            }
+    ) {
+        stackView.axis = axis
+        stackView.spacing = spacing
+        stackView.distribution = distribution
+        stackView.alignment = aligment
+        
+        subviews.forEach { item in
+            item.translatesAutoresizingMaskIntoConstraints = false
+            stackView.addArrangedSubview(item)
         }
-    
-    private func constructStackView(){
-        // MARK: - Properties for stack view
-        
-        typealias Item = (name: String, value: Int)
-        let items: [Item] = [
-          Item(name: "ing", value: 3),
-          Item(name: "kcal", value: 350),
-          Item(name: "min", value: 10),
-        ]
-        
-        let valueFormatter = NumberFormatter()
-        valueFormatter.numberStyle = .decimal
-        
-        // MARK: - Custom styles for stack view
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = NSTextAlignment.center
-        
-        let valueStyle: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 23), NSAttributedString.Key.foregroundColor: UIColor.white]
-        let nameStyle: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .thin), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.baselineOffset: 4]
-        
-        // MARK: - StackView build
-        
-        func buildSeparatorForStackView(){
-            let separator = UIView()
-            separator.widthAnchor.constraint(equalToConstant: 0.5).isActive = true
-            separator.backgroundColor = .white
-            detailStackView.addArrangedSubview(separator)
-            separator.heightAnchor.constraint(equalTo: detailStackView.heightAnchor, multiplier: 0.4).isActive = true
-        }
-        
-        func buildLabelForStackView(for item: Item){
-            let totalText = NSMutableAttributedString()
-            let valueString = valueFormatter.string(for: item.value)!
-            totalText.append(NSAttributedString(string: valueString + " ", attributes: valueStyle))
-            totalText.append(NSAttributedString(string: item.name, attributes: nameStyle))
-            let label = UILabel()
-            label.attributedText = totalText
-            label.textAlignment = .center
-            label.numberOfLines = 0
-            detailStackView.addArrangedSubview(label)
-
-            if let firstLabel = detailStackView.arrangedSubviews.first as? UILabel {
-                label.widthAnchor.constraint(equalTo: firstLabel.widthAnchor).isActive = true
-            }
-        }
-        
-        for item in items {
-            if detailStackView.arrangedSubviews.count > 0 {
-                buildSeparatorForStackView()
-            }
-            buildLabelForStackView(for: item)
-        }
-        detailStackView.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
-// MARK: - UITableView Data Source/Delegate
-extension DetailViewController: UITableViewDataSource{
-    // MARK: - Data loading
-    private func loadIngredients() {
-        ingredients.append(
-            IngredientModel(title: "1 cucumber", picture: UIImage(systemName: "applelogo")!))
-        ingredients.append(
-            IngredientModel(title: "1 tomato", picture: UIImage(systemName: "applelogo")!))
-        ingredients.append(
-            IngredientModel(title: "1 tablespoon oil", picture: UIImage(systemName: "applelogo")!))
-        ingredients.sort{ $0.title < $1.title }
-    }
-    
-    private func loadInstructions(){
-        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Clean and chop the vegatables", minutes: 2), isChecked: false))
-        recipeInstructions.append(RecipeViewModel(recipeInstruction: RecipesModel.Instruction(step: "Add oil and seasonings", minutes: 1), isChecked: false))
-    }
+// MARK: - TableView
+extension DetailViewController{
+    func setupTableView(){
+        recipeTableView.delegate = self
         
-    // MARK: - Table properties
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isShowInstructions{
-            let indexesToRedraw = [indexPath]
-            selectedIndex = indexPath
-            recipeInstructions[indexPath.row].isChecked = !recipeInstructions[indexPath.row].isChecked
-            tableView.reloadRows(at: indexesToRedraw, with: .fade)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isShowInstructions ? recipeInstructions.count : ingredients.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailCell.reuseID, for: indexPath) as! DetailCell
-        if isShowInstructions{
-            let recipeInstruction = recipeInstructions[indexPath.row]
-            cell.configure(recipeInstruction: recipeInstruction)
-        }
-        else {
-            let ingredient = ingredients[indexPath.row]
-            cell.configure(ingredient: ingredient)
-        }
-        return cell
+        recipeTableView.register(DetailCell.self, forCellReuseIdentifier: DetailCell.reuseID)
+        recipeTableView.estimatedRowHeight = DetailCell.rowHeight
+        recipeTableView.rowHeight = UITableView.automaticDimension
+        recipeTableView.separatorStyle = .none
+        
+        recipeTableView.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
+// MARK: - Actions
+extension DetailViewController{
+    @objc private func ButtonClicked() {
+        isShowInstructions.toggle()
+    }
+}
+
+// MARK: - UITableView Delegate
 extension DetailViewController: UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isShowInstructions {
+            let indexesToRedraw = [indexPath]
+            dataSourceSteps.instructions[indexPath.row].isChecked.toggle()
+            // TODO: - Make checkboxes work
+            tableView.reloadRows(at: indexesToRedraw, with: .fade)
+        }
     }
 }

@@ -66,8 +66,25 @@ private extension FavoriteViewController {
 // MARK: - UITableViewDelegate
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let recipe = dataSource.favoriteRecipes[indexPath.row]
-        let vc = DetailViewController()
+        let recipe = convert(dataSource.favoriteRecipes[indexPath.row])
+        let vc = DetailViewController(with: recipe)
         navigationController?.pushViewController(vc, animated: true)
+        
+        func convert(_ recipe: SearchModel) -> DetailRecipeModel {
+            .init(
+                id: recipe.id,
+                title: recipe.title,
+                aggregateLikes: recipe.aggregateLikes,
+                readyInMinutes: recipe.readyInMinutes,
+                image: recipe.image,
+                calories: recipe.calories,
+                ingredients: [
+                    .init(image: "butter-sliced.jpg", original: "2 tablespoon butter")
+                ],
+                steps: [
+                    .init(step: "test", minutes: 12)
+                ]
+            )
+        }
     }
 }

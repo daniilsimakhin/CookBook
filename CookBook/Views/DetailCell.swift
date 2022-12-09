@@ -9,9 +9,12 @@ import UIKit
 
 // MARK: - Cell for recipeTableView in DetailViewController
 class DetailCell: UITableViewCell{
-    // MARK: - UI Elements
+    static let rowHeight: CGFloat = 100
     static let reuseID = String(describing: DetailCell.self)
     
+    let networkLoader = NetworkLoader(networkClient: NetworkClient())
+    
+    // MARK: - UI Elements
     private let stackView = UIStackView()
     
     private let mainTextLabel = UILabel()
@@ -19,23 +22,11 @@ class DetailCell: UITableViewCell{
 
     private var imageDetail = UIImageView()
     
-    // MARK: - Setters
-    var textInCell: String? {
-        didSet { mainTextLabel.text = textInCell ?? "" }
-    }
-    
-    var timeInCell: String? {
-        didSet { timeLabel.text = timeInCell ?? "" }
-    }
-    
-    var imageInCell: UIImage? {
-        didSet { imageDetail.image = imageInCell ?? UIImage()}
-    }
-    
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
+        applyStyle()
         layout()
     }
     
@@ -46,38 +37,60 @@ class DetailCell: UITableViewCell{
 
 // MARK: - Style, layout and configuration
 extension DetailCell {
-    
     private func setup() {
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        mainTextLabel.numberOfLines = 0
-        imageDetail.tintColor = .black
+        stackView.axis = .vertical
+        stackView.distribution = .fill
         stackView.alignment = .center
+        stackView.spacing = 10
+        stackView.backgroundColor = Theme.cbYellow20
+        stackView.layer.cornerRadius = 5
+        stackView.layer.masksToBounds = true
+        
+        mainTextLabel.numberOfLines = 0
+        mainTextLabel.textAlignment = .right
+        imageDetail.tintColor = Theme.cbYellow50
         imageDetail.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    private func applyStyle(){
+        mainTextLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        timeLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+    }
+    
     private func layout() {
-        stackView.addArrangedSubview(imageDetail)
         stackView.addArrangedSubview(mainTextLabel)
         stackView.addArrangedSubview(timeLabel)
-        NSLayoutConstraint.activate([
-            imageDetail.widthAnchor.constraint(equalToConstant: 40),
-            imageDetail.heightAnchor.constraint(equalToConstant: 40)
-
-        ])
+        contentView.addSubview(imageDetail)
         contentView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            stackView.leadingAnchor.constraint(equalTo: imageDetail.trailingAnchor, constant: 5),
+            stackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+            
+            imageDetail.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            imageDetail.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            imageDetail.widthAnchor.constraint(equalToConstant: 50),
+            imageDetail.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     func configure(ingredient: IngredientModel) {
-        mainTextLabel.text = ingredient.title
-        imageDetail.image = ingredient.picture
-        timeLabel.text = ""
+        mainTextLabel.text = ingredient.original
+        networkLoader.getIngredientImage(name: ingredient.image) { [weak self] image in
+            self?.imageDetail.image = image
+        }
     }
     
-    func configure(recipeInstruction: RecipeViewModel){
-        mainTextLabel.text = recipeInstruction.recipeInstruction.step
-        timeLabel.text = String(recipeInstruction.recipeInstruction.minutes) + " min"
+    func configure(recipeInstruction: InstructionModel){
+        mainTextLabel.text = recipeInstruction.step
+        timeLabel.text = "\(recipeInstruction.minutes) min"
         imageDetail.image = recipeInstruction.isChecked ? UIImage(systemName: "checkmark.square") : UIImage(systemName: "square")
+    }
+    
+    override func prepareForReuse() {
+        timeLabel.text = ""
     }
 }

@@ -187,8 +187,35 @@ extension PopularViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let dataProvider = RecipesProviderImpl()
+        dataProvider.loadRecipes { [weak self] result in
+            switch result {
+            case let .success(model):
+                let recipe = convert(model.recipes[0])
+                let vc = DetailViewController(with: recipe)
+                vc.title = recipe.title
+                self?.navigationController?.pushViewController(vc, animated: true)
+            case let .failure(error):
+                print(error)
+            }
+        }
+        
+        func convert(_ recipe: RecipesModel.Recipe) -> DetailRecipeModel {
+            .init(
+                id: recipe.id,
+                title: recipe.title,
+                aggregateLikes: recipe.aggregateLikes,
+                readyInMinutes: recipe.readyInMinutes,
+                image: recipe.image,
+                calories: 0,
+                ingredients: recipe.ingredients.map { res in
+                        .init(image: res.image, original: res.original)
+                },
+                steps: recipe.instructions.map { res in
+                        .init(step: res.step, minutes: res.minutes)
+                }
+            )
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

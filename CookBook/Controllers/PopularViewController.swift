@@ -16,13 +16,21 @@ class PopularViewController: UIViewController {
         return collectionView
     }()
     
-    private let sections = CompMockData.shared.pageData
+    private var sections = CompMockData.shared.pageData
+    private var popularModel: PopularModel?
+    private var vegan: [ListItem]?
+    private var random: [ListItem]?
+    private let loader = NetworkLoader(networkClient: NetworkClient())
+    
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshContent()
         setupViews()
         setConstraints()
         setDelegates()
+        setupRefreshControl()
     }
     
     private func setupViews() {
@@ -42,6 +50,77 @@ class PopularViewController: UIViewController {
             withReuseIdentifier: "HeaderSupplementaryView"
         )
         collectionView.collectionViewLayout = createLayout()
+    }
+    
+    private func setupRefreshControl() {
+        refreshControl.tintColor = Theme.cbYellow50 // цвет индикатора загрузки
+        refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshContent() {
+        collectionView.reloadData()
+        fetchData()
+    }
+    
+    private func fetchData() {
+        
+        let group = DispatchGroup()
+        
+        fetchRandom(group: group)
+        fetchVegan(group: group)
+        
+        group.notify(queue: .main) {
+            self.reloadView()
+        }
+    }
+    
+    private func fetchRandom(group: DispatchGroup) {
+        group.enter()
+        let danse = ["D", "A", "N", "S", "E"].randomElement()
+        loader.fetchSearchRecipes(router: .searchRequest(text: danse!, number: 10, offset: 0)) { [weak self] (result: Result<SearchResults, Error>) in
+            switch result {
+            case .success(let success):
+                let searchModels = success.results.map { result in
+                    SearchModel(searchResult: result)
+                }
+                self?.random = searchModels.map { res in
+                        .init(title: res.title, image: res.image, id: res.id)
+                }
+                guard let random = self?.random else { return }
+                self?.sections[0] = .random(random)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+            group.leave()
+        }
+    }
+    
+    private func fetchVegan(group: DispatchGroup) {
+        group.enter()
+        let tags = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy"].randomElement()
+        let danse = ["D", "A", "N", "S", "E"].randomElement()
+        loader.fetchVegetarianRecipes(router: .randomVegetarianRequest(text: danse!, number: 10, offset: 0, tags: tags!)) { [weak self] (result: Result<SearchResults, Error>) in
+            switch result {
+            case .success(let success):
+                let searchModels = success.results.map { result in
+                    SearchModel(searchResult: result)
+                }
+                self?.vegan = searchModels.map { res in
+                        .init(title: res.title, image: res.image, id: res.id)
+                }
+                guard let vegan = self?.vegan else { return }
+                self?.sections[1] = .vegan(vegan)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+            group.leave()
+        }
+    }
+    
+    private func reloadView() {
+        self.collectionView.refreshControl?.endRefreshing()
+        self.collectionView.reloadData()
     }
     
     private func setDelegates() {
@@ -76,13 +155,13 @@ extension PopularViewController {
         supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem],
         contentInsets: Bool
     ) -> NSCollectionLayoutSection {
-            let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = behavior
-            section.interGroupSpacing = intergrouupSpacing
-            section.boundarySupplementaryItems = supplementaryItems
-            section.supplementariesFollowContentInsets = contentInsets
-            return section
-        }
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = behavior
+        section.interGroupSpacing = intergrouupSpacing
+        section.boundarySupplementaryItems = supplementaryItems
+        section.supplementariesFollowContentInsets = contentInsets
+        return section
+    }
     
     private func createRandomSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
@@ -187,33 +266,27 @@ extension PopularViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let dataProvider = RecipesProviderImpl()
-        dataProvider.loadRecipes { [weak self] result in
-            switch result {
-            case let .success(model):
-                let recipe = convert(model.recipes[0])
-                let vc = DetailViewController(with: recipe)
-                vc.title = recipe.title
-                self?.navigationController?.pushViewController(vc, animated: true)
-            case let .failure(error):
-                print(error)
-            }
-        }
         
-        func convert(_ recipe: RecipesModel.Recipe) -> DetailRecipeModel {
+        print(sections[indexPath.section].items[indexPath.row].id)
+        
+        let recipe = convert(sections[indexPath.section].items[indexPath.row])
+        let vc = DetailViewController(with: recipe)
+        navigationController?.pushViewController(vc, animated: true)
+        
+        func convert(_ recipe: ListItem) -> DetailRecipeModel {
             .init(
                 id: recipe.id,
                 title: recipe.title,
-                aggregateLikes: recipe.aggregateLikes,
-                readyInMinutes: recipe.readyInMinutes,
+                aggregateLikes: 0,
+                readyInMinutes: 0,
                 image: recipe.image,
                 calories: 0,
-                ingredients: recipe.ingredients.map { res in
-                        .init(image: res.image, original: res.original)
-                },
-                steps: recipe.instructions.map { res in
-                        .init(step: res.step, minutes: res.minutes)
-                }
+                ingredients: [
+                    .init(image: "butter-sliced.jpg", original: "2 tablespoon butter")
+                ],
+                steps: [
+                    .init(step: "test", minutes: 12)
+                ]
             )
         }
     }

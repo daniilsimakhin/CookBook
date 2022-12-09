@@ -29,7 +29,7 @@ enum ListSection {
         case .random(_):
             return "Random Recipes"
         case .vegan(_):
-            return "Vegetarian"
+            return "Random"
         }
     }
 }

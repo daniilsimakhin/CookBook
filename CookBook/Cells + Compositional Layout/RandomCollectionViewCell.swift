@@ -35,6 +35,8 @@ class RandomCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let loader = NetworkLoader(networkClient: NetworkClient())
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -59,7 +61,9 @@ class RandomCollectionViewCell: UICollectionViewCell {
     
     func configureCell(mealLabel: String, imageName: String) {
         titleLabel.text = mealLabel
-        randomImageView.image = UIImage(named: imageName)
+        loader.getRecipeImage(stringUrl: imageName) { image in
+            self.randomImageView.image = image
+        }
     }
     
     func setConstraints() {

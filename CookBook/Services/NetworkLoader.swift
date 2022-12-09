@@ -97,7 +97,9 @@ private extension NetworkLoader {
                     completionHandler(nil)
                     return
                 }
-                completionHandler(image)
+                DispatchQueue.main.async {
+                    completionHandler(image)
+                }
             case .failure(let error):
                 print("Error with getting image from url: \(stringUrl) - \(error)")
             }

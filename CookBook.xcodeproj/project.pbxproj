@@ -115,17 +115,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3732185A29381DBC000F7062 /* Cells + Compositional Layout */ = {
+		3732185A29381DBC000F7062 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3732185829381DB4000F7062 /* VeganCollectionViewCell.swift */,
 				3732185B2938216C000F7062 /* RandomCollectionViewCell.swift */,
-				373218522937C07C000F7062 /* ListItem.swift */,
-				373218542937C130000F7062 /* ListSection.swift */,
-				37321856293814C8000F7062 /* CompMockData.swift */,
 				3732185D29382AB6000F7062 /* HeaderSupplementaryView.swift */,
 			);
-			path = "Cells + Compositional Layout";
+			path = View;
 			sourceTree = "<group>";
 		};
 		5A855B0B2944DB0D005C5252 /* View */ = {
@@ -178,10 +175,30 @@
 			path = FavoriteScreen;
 			sourceTree = "<group>";
 		};
+		5A855B102944DF21005C5252 /* PopularScreen */ = {
+			isa = PBXGroup;
+			children = (
+				373218502937BE4F000F7062 /* PopularViewController.swift */,
+				5A855B112944DF70005C5252 /* Model */,
+				3732185A29381DBC000F7062 /* View */,
+			);
+			path = PopularScreen;
+			sourceTree = "<group>";
+		};
+		5A855B112944DF70005C5252 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				373218522937C07C000F7062 /* ListItem.swift */,
+				373218542937C130000F7062 /* ListSection.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5A9B52962936BFDC00B88214 /* MockData */ = {
 			isa = PBXGroup;
 			children = (
 				5A9B529429361A8700B88214 /* Example.json */,
+				37321856293814C8000F7062 /* CompMockData.swift */,
 			);
 			path = MockData;
 			sourceTree = "<group>";
@@ -205,11 +222,11 @@
 		5AE1DECE2934F6D200665540 /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+				5A855B102944DF21005C5252 /* PopularScreen */,
 				5A855B0F2944DE25005C5252 /* FavoriteScreen */,
 				5A855B0C2944DCAB005C5252 /* DetailScreen */,
 				A528B7CD293668C2001812A4 /* SearchScreen */,
 				5AE1DEE9293509CE00665540 /* Models */,
-				3732185A29381DBC000F7062 /* Cells + Compositional Layout */,
 				5AE1DEEB29350A0A00665540 /* Controllers */,
 				5AE1DEEC29350A3A00665540 /* Services */,
 				5AE1DEED29350A6000665540 /* Helpers */,
@@ -264,7 +281,6 @@
 			children = (
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
-				373218502937BE4F000F7062 /* PopularViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

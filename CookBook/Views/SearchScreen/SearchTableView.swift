@@ -12,8 +12,10 @@ final class SearchTableView: UITableView {
     }
     
     weak var output: SearchTableViewDelegate?
-    var data: [SearchModel]?
-    var source: UITableViewDiffableDataSource<Section, SearchModel>?
+    var searchModels: [SearchModel]?
+    var searchCompleteModels: [SearchCompleteModel]?
+    var searchModelsDataSource: UITableViewDiffableDataSource<Section, SearchModel>?
+    var searchCompleteModelsDataSource: UITableViewDiffableDataSource<Section, SearchCompleteModel>?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -28,16 +30,6 @@ final class SearchTableView: UITableView {
 // MARK: - Private func
 
 private extension SearchTableView {
-    func configureDataSource() {
-        source = UITableViewDiffableDataSource<Section, SearchModel>(tableView: self, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
-            let cell = tableView.dequeueCell(type: SearchTableViewMiniCell.self, with: indexPath)
-            cell.configure(recipe: self.data?[indexPath.row])
-            return cell
-        })
-        guard let data = data else { return }
-        createSnapshot(items: data, toSection: .main)
-    }
-    
     func setup() {
         backgroundColor = .clear
         estimatedRowHeight = 120
@@ -46,22 +38,49 @@ private extension SearchTableView {
         delegate = self
         translatesAutoresizingMaskIntoConstraints = false
         register(type: SearchTableViewMiniCell.self)
-        configureDataSource()
+        register(type: UITableViewCell.self)
     }
 }
 
 // MARK: - Public func
 
 extension SearchTableView {
-    func createSnapshot(items: [SearchModel], toSection: Section) {
-        data = items
+    func createSearchSnapshot(items: [SearchModel], toSection: Section) {
+        searchModels = items
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, SearchModel>()
 
         snapshot.appendSections([toSection])
         snapshot.appendItems(items, toSection: toSection)
 
-        source?.apply(snapshot, animatingDifferences: true)
+        searchModelsDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func createSearchAutoCompleteSnapshot(items: [SearchCompleteModel], toSection: Section) {
+        searchCompleteModels = items
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SearchCompleteModel>()
+
+        snapshot.appendSections([toSection])
+        snapshot.appendItems(items, toSection: toSection)
+
+        searchCompleteModelsDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func configureSearchDataSource() {
+        searchModelsDataSource = UITableViewDiffableDataSource<Section, SearchModel>(tableView: self, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+            let cell = tableView.dequeueCell(type: SearchTableViewMiniCell.self, with: indexPath)
+            cell.configure(recipe: self.searchModels?[indexPath.row])
+            return cell
+        })
+    }
+    
+    func configureSearchAutoCompleteDataSource() {
+        searchCompleteModelsDataSource = UITableViewDiffableDataSource<Section, SearchCompleteModel>(tableView: self, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+            let cell = tableView.dequeueCell(type: UITableViewCell.self, with: indexPath)
+            cell.textLabel?.text = self.searchCompleteModels?[indexPath.row].title
+            return cell
+        })
     }
 }
 

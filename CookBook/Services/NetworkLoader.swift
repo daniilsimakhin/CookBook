@@ -1,5 +1,10 @@
 import UIKit
 
+struct SearchCompleteModel: Decodable, Hashable {
+    let id: Int
+    let title: String
+}
+
 struct NetworkLoader {
     
     private let networkClient: NetworkClient
@@ -15,6 +20,17 @@ struct NetworkLoader {
                 completionHandler(.success(data))
             case .failure(let error):
                 completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    func fetchSearchAutoComplete<T: Decodable>(router: NetworkRouter, completionHandler: @escaping (Result<T, Error>) -> ()) {
+        loadData(router.absoluteString) { (result: Result<T, Error>) in
+            switch result {
+            case .success(let data):
+                completionHandler(.success(data))
+            case .failure(let error):
+                completionHandler(.failure(ServiceError.general(reason: "Error with request search auto complete: \(error)")))
             }
         }
     }
@@ -132,6 +148,7 @@ enum NetworkRouter {
     case randomRequest
     case randomVegetarianRequest(text: String, number: Int, offset: Int, tags: String)
     case searchRequest(text: String, number: Int, offset: Int)
+    case searchAutoComplete(text: String)
     
     var apiKey: String {
         return Secrets.apiKey
@@ -139,14 +156,14 @@ enum NetworkRouter {
     
     var scheme: String {
         switch self {
-        case .randomRequest, .searchRequest, .randomVegetarianRequest:
+        case .randomRequest, .searchRequest, .randomVegetarianRequest, .searchAutoComplete:
             return "https"
         }
     }
     
     var host: String {
         switch self {
-        case .randomRequest, .searchRequest, .randomVegetarianRequest:
+        case .randomRequest, .searchRequest, .randomVegetarianRequest, .searchAutoComplete:
             return "api.spoonacular.com"
         }
     }
@@ -157,6 +174,8 @@ enum NetworkRouter {
             return "/recipes/random"
         case .searchRequest, .randomVegetarianRequest:
             return "/recipes/complexSearch"
+        case .searchAutoComplete:
+            return "/recipes/autocomplete"
         }
     }
     
@@ -182,6 +201,10 @@ enum NetworkRouter {
         case .randomRequest:
             return [URLQueryItem(name: "apiKey", value: apiKey),
                     URLQueryItem(name: "number", value: String(10))]
+        case .searchAutoComplete(let text):
+            return [URLQueryItem(name: "apiKey", value: apiKey),
+                    URLQueryItem(name: "query", value: text),
+                    URLQueryItem(name: "number", value: String(15))]
         }
     }
     

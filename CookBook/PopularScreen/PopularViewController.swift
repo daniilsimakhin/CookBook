@@ -35,7 +35,7 @@ class PopularViewController: UIViewController {
     }
     
     private func setupViews() {
-        title = "Popular"
+        navigationItem.title = "Popular"
         view.addSubview(collectionView)
         collectionView.register(
             RandomCollectionViewCell.self,

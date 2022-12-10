@@ -30,7 +30,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.font = Theme.Fonts.cbRecipeTitle
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = Theme.cbText100
+        label.textColor = Theme.cbBlack
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

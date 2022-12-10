@@ -30,7 +30,8 @@ final class DetailViewController: UIViewController {
 
     private let recipeTitle: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 27, weight: .semibold)
+        label.adjustsFontForContentSizeCategory = true
+        label.font = Theme.Fonts.cbRecipeTitle
         label.textColor = Theme.cbWhite
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,8 +49,9 @@ final class DetailViewController: UIViewController {
     
     private let counterLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Theme.blackColor
-        label.font = .systemFont(ofSize: 25, weight: .medium)
+        label.textColor = Theme.cbGreen80
+        label.font = Theme.Fonts.cbMediumLabel
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
     
@@ -178,9 +180,9 @@ extension DetailViewController{
         button.layer.backgroundColor = Theme.cbYellow50.cgColor
         button.setTitleColor(.white, for: .normal)
         button.layer.shadowColor = Theme.shadowColor.cgColor
-        button.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        button.layer.shadowOffset = Theme.shadowOffset
         button.layer.shadowOpacity = 1.0
-        button.layer.shadowRadius = 3.0
+        button.layer.shadowRadius = Theme.shadowRadius
         button.layer.masksToBounds = false
     }
     
@@ -189,15 +191,15 @@ extension DetailViewController{
                                    secondaryText: String){
         label.textColor = Theme.cbWhite
         
-        let attributesForMain = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 20)]
-        let attributesForSecondary = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .thin)]
+        let attributesForMain = [NSAttributedString.Key.font : Theme.Fonts.cbAttributeBold]
+        let attributesForSecondary = [NSAttributedString.Key.font: Theme.Fonts.cbAttributeThin]
 
         let boldString = NSMutableAttributedString(string: mainText, attributes: attributesForMain)
         let thinString = NSMutableAttributedString(string: secondaryText, attributes: attributesForSecondary)
         thinString.addAttribute(.baselineOffset, value: 2, range: NSRange(location: 0, length: thinString.length))
         let attributedString = NSMutableAttributedString(attributedString: boldString)
         attributedString.append(thinString)
-        
+        label.adjustsFontForContentSizeCategory = true
         label.attributedText = attributedString
     }
     
@@ -217,7 +219,8 @@ extension DetailViewController{
         button.setTitleColor(.black, for: .normal)
         button.setTitle(text, for: .normal)
         button.layer.cornerRadius = 10
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .regular)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = Theme.Fonts.cbRecipeTitleSmall
         button.translatesAutoresizingMaskIntoConstraints = false
     }
     

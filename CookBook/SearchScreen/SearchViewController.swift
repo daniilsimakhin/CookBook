@@ -46,7 +46,7 @@ final class SearchViewController: UIViewController {
 
 private extension SearchViewController {
     func setup() {
-        title = "Discover"
+        navigationItem.title = "Discover"
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

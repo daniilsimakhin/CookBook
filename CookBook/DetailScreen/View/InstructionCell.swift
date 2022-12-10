@@ -31,7 +31,8 @@ class InstructionCell: UITableViewCell{
     
     private let mainTextLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.font = Theme.Fonts.cbBodyFont
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,16 +42,17 @@ class InstructionCell: UITableViewCell{
     private var timeButton: UIButton = {
         let button = UIButton()
         var clockImage: UIImage? = {
-            let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+            let config = UIImage.SymbolConfiguration(font: Theme.Fonts.cbSmallButtonFont)
             let image = UIImage(systemName: "clock", withConfiguration: config)
             return image
         }()
         button.setImage(clockImage, for: .normal)
         button.tintColor = Theme.cbWhite
-        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        button.sizeToFit()
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 2, bottom: 5, right: 10)
         button.setTitleColor(Theme.cbWhite, for: .normal)
         button.backgroundColor = Theme.cbGreen50
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = Theme.Fonts.cbSmallButtonFont
         button.layer.cornerRadius = 10
         button.layer.cornerCurve = .continuous
         button.layer.masksToBounds = true
@@ -63,7 +65,6 @@ class InstructionCell: UITableViewCell{
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
         applyStyle()
         layout()
     }
@@ -75,10 +76,8 @@ class InstructionCell: UITableViewCell{
 
 // MARK: - Style, layout and configuration
 extension InstructionCell {
-    private func setup() {
-    }
-    
     private func applyStyle(){
+        timeButton.titleLabel?.adjustsFontForContentSizeCategory = true
     }
     
     private func layout() {
@@ -97,7 +96,7 @@ extension InstructionCell {
             mainTextLabel.trailingAnchor.constraint(lessThanOrEqualTo: cellView.trailingAnchor, constant: -10),
             mainTextLabel.leadingAnchor.constraint(greaterThanOrEqualTo: cellView.leadingAnchor, constant: 10),
 
-            timeButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            timeButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor),
             timeButton.topAnchor.constraint(equalTo: cellView.bottomAnchor, constant: 12.5),
             timeButton.widthAnchor.constraint(equalToConstant: 80),
             timeButton.heightAnchor.constraint(equalToConstant: 30)
@@ -107,7 +106,7 @@ extension InstructionCell {
     func configure(recipeInstruction: InstructionModel){
         mainTextLabel.text = recipeInstruction.step
         self.isChecked = recipeInstruction.isChecked
-        timeButton.setTitle(" \(recipeInstruction.minutes)", for: .normal)
+        timeButton.setTitle("  \(recipeInstruction.minutes)", for: .normal)
     }
 }
 

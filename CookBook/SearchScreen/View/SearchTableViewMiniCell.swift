@@ -8,7 +8,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
     var recipe: SearchModel?
     
     private lazy var heartImage: UIImage? = {
-        let config = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .headline))
+        let config = UIImage.SymbolConfiguration(font: Theme.Fonts.cbSmallButtonFont)
         let image = UIImage(systemName: "heart", withConfiguration: config)
         return image
     }()
@@ -30,7 +30,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.numberOfLines = 2
         view.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         view.setContentHuggingPriority(.defaultLow, for: .vertical)
-        view.font = .preferredFont(forTextStyle: .headline)
+        view.font = Theme.Fonts.cbRecipeTitleSmall
         view.adjustsFontForContentSizeCategory = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -41,7 +41,7 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.numberOfLines = 3
         view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        view.font = .preferredFont(forTextStyle: .headline)
+        view.font = Theme.Fonts.cbAttributeBoldSmaller
         view.adjustsFontForContentSizeCategory = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -52,8 +52,10 @@ final class SearchTableViewMiniCell: UITableViewCell {
         view.tintColor = Theme.cbYellow50
         view.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         view.sizeToFit()
-        view.setTitleColor(.label, for: .normal)
+        view.setTitleColor(Theme.cbWhite, for: .normal)
         view.backgroundColor = Theme.cbGreen50
+        view.titleLabel?.font = Theme.Fonts.cbSmallButtonFont
+        view.titleLabel?.adjustsFontForContentSizeCategory = true
         view.layer.cornerRadius = 10
         view.layer.cornerCurve = .continuous
         view.layer.masksToBounds = true
@@ -90,6 +92,7 @@ extension SearchTableViewMiniCell {
         
         titleLabel.text = recipe.title
         subTitleLabel.attributedText = recipe.subTitleAttributedString
+        subTitleLabel.adjustsFontForContentSizeCategory = true
         likeButton.setTitle(" \(recipe.aggregateLikes)", for: .normal)
         let loader = NetworkLoader(networkClient: networkClient)
         loader.getRecipeImage(stringUrl: recipe.image) { [weak self] image in

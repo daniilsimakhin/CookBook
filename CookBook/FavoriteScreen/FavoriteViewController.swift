@@ -44,7 +44,7 @@ private extension FavoriteViewController {
     }
     
     func applyStyle() {
-        title = "Favorite"
+        navigationItem.title = "Favorite"
         view.backgroundColor = Theme.appColor
     }
     

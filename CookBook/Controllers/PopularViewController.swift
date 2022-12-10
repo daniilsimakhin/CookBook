@@ -281,6 +281,7 @@ extension PopularViewController: UICollectionViewDataSource {
                 title: recipe.title,
                 aggregateLikes: 0,
                 readyInMinutes: 0,
+                servings: 0,
                 image: recipe.image,
                 calories: 0,
                 ingredients: [

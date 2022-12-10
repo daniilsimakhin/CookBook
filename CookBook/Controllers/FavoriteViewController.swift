@@ -92,6 +92,7 @@ extension FavoriteViewController: UITableViewDelegate {
                 title: recipe.title,
                 aggregateLikes: recipe.aggregateLikes,
                 readyInMinutes: recipe.readyInMinutes,
+                servings: 3,
                 image: recipe.image,
                 calories: recipe.calories,
                 ingredients: [

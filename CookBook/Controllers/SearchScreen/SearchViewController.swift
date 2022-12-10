@@ -116,7 +116,6 @@ extension SearchViewController: SearchTableViewDelegate {
             case let .success(model):
                 let recipe = convert(model.recipes[0])
                 let vc = DetailViewController(with: recipe)
-                vc.title = recipe.title
                 self?.navigationController?.pushViewController(vc, animated: true)
             case let .failure(error):
                 print(error)
@@ -129,8 +128,9 @@ extension SearchViewController: SearchTableViewDelegate {
                 title: recipe.title,
                 aggregateLikes: recipe.aggregateLikes,
                 readyInMinutes: recipe.readyInMinutes,
+                servings: recipe.servings,
                 image: recipe.image,
-                calories: 0,
+                calories: 100,
                 ingredients: recipe.ingredients.map { res in
                         .init(image: res.image, original: res.original)
                 },

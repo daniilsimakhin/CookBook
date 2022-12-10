@@ -22,7 +22,7 @@ extension InstructionsDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailCell.reuseID, for: indexPath) as! DetailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: InstructionCell.reuseID, for: indexPath) as! InstructionCell
         let instruction = instructions[indexPath.row]
         cell.configure(recipeInstruction: instruction)
         return cell

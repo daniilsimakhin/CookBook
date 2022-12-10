@@ -12,6 +12,7 @@ struct DetailRecipeModel{
     let title: String
     let aggregateLikes: Int
     let readyInMinutes: Int
+    let servings: Int
     let image: String
     let calories: Int
     

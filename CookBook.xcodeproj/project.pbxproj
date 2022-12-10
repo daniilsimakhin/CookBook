@@ -140,6 +140,26 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5A855B0C2944DCAB005C5252 /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4DEC344B29377454004CE14C /* DetailViewController.swift */,
+				5A855B0D2944DCEA005C5252 /* Model */,
+				5AE1DEEA293509DE00665540 /* View */,
+			);
+			path = DetailScreen;
+			sourceTree = "<group>";
+		};
+		5A855B0D2944DCEA005C5252 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5A0B3A092942B4FB00C23625 /* IngredientsDataSource.swift */,
+				5A0B3A082942B4FB00C23625 /* InstructionsDataSource.swift */,
+				5A0B3A0C2942B60200C23625 /* DetailRecipeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5A9B52962936BFDC00B88214 /* MockData */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,9 +187,9 @@
 		5AE1DECE2934F6D200665540 /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+				5A855B0C2944DCAB005C5252 /* DetailScreen */,
 				A528B7CD293668C2001812A4 /* SearchScreen */,
 				5AE1DEE9293509CE00665540 /* Models */,
-				5AE1DEEA293509DE00665540 /* Views */,
 				3732185A29381DBC000F7062 /* Cells + Compositional Layout */,
 				5AE1DEEB29350A0A00665540 /* Controllers */,
 				5AE1DEEC29350A3A00665540 /* Services */,
@@ -209,20 +229,17 @@
 				5A9B52992936C2C100B88214 /* RecipesModel.swift */,
 				5A563B28293EE3B900076C37 /* FavoriteRecipesStorage.swift */,
 				5A563B2C293F01FF00076C37 /* FavoriteRecipesDataSource.swift */,
-				5A0B3A092942B4FB00C23625 /* IngredientsDataSource.swift */,
-				5A0B3A082942B4FB00C23625 /* InstructionsDataSource.swift */,
-				5A0B3A0C2942B60200C23625 /* DetailRecipeModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5AE1DEEA293509DE00665540 /* Views */ = {
+		5AE1DEEA293509DE00665540 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				4D765D062943909700A8C517 /* IngredientCell.swift */,
 				4D765D08294390A800A8C517 /* InstructionCell.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		5AE1DEEB29350A0A00665540 /* Controllers */ = {
@@ -231,7 +248,6 @@
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
 				5A563B2A293F00B900076C37 /* FavoriteViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
-				4DEC344B29377454004CE14C /* DetailViewController.swift */,
 				373218502937BE4F000F7062 /* PopularViewController.swift */,
 			);
 			path = Controllers;

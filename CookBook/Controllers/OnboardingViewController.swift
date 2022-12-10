@@ -141,13 +141,13 @@ extension OnboardingViewController {
     @objc func startButtonTapped(_ sender: UIButton) {
         
         let dataProvider = RecipesProviderImpl()
-        dataProvider.loadRecipes { result in
+        dataProvider.loadRecipe { result in
             switch result {
             case let .success(model):
-                print(model.recipes[0].title)
-                print(model.recipes[0].readyInMinutes)
-                print(model.recipes[0].image)
-                print(model.recipes[0].instructions)
+                print(model.title)
+                print(model.readyInMinutes)
+                print(model.image)
+                print(model.instructions)
             case let .failure(error):
                 print(error)
             }

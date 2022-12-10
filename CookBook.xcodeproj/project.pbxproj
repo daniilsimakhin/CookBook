@@ -160,6 +160,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5A855B0E2944DDE9005C5252 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5A563B28293EE3B900076C37 /* FavoriteRecipesStorage.swift */,
+				5A563B2C293F01FF00076C37 /* FavoriteRecipesDataSource.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5A855B0F2944DE25005C5252 /* FavoriteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5A563B2A293F00B900076C37 /* FavoriteViewController.swift */,
+				5A855B0E2944DDE9005C5252 /* Model */,
+			);
+			path = FavoriteScreen;
+			sourceTree = "<group>";
+		};
 		5A9B52962936BFDC00B88214 /* MockData */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +205,7 @@
 		5AE1DECE2934F6D200665540 /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+				5A855B0F2944DE25005C5252 /* FavoriteScreen */,
 				5A855B0C2944DCAB005C5252 /* DetailScreen */,
 				A528B7CD293668C2001812A4 /* SearchScreen */,
 				5AE1DEE9293509CE00665540 /* Models */,
@@ -227,8 +246,6 @@
 			children = (
 				5A9B529B2936C75700B88214 /* RecipesData.swift */,
 				5A9B52992936C2C100B88214 /* RecipesModel.swift */,
-				5A563B28293EE3B900076C37 /* FavoriteRecipesStorage.swift */,
-				5A563B2C293F01FF00076C37 /* FavoriteRecipesDataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -246,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
-				5A563B2A293F00B900076C37 /* FavoriteViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
 				373218502937BE4F000F7062 /* PopularViewController.swift */,
 			);

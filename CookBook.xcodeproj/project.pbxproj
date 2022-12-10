@@ -91,7 +91,7 @@
 		5AE1DEF429352A1500665540 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewMiniCell.swift; sourceTree = "<group>"; };
 		A528B7C429365419001812A4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		A528B7C62936549A001812A4 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchTableView.swift; path = CookBook/Views/SearchScreen/SearchTableView.swift; sourceTree = SOURCE_ROOT; };
+		A528B7C62936549A001812A4 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		A528B7C9293662A0001812A4 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		A528B7CB2936638F001812A4 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -128,6 +128,18 @@
 			path = "Cells + Compositional Layout";
 			sourceTree = "<group>";
 		};
+		5A855B0B2944DB0D005C5252 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */,
+				A528B7C62936549A001812A4 /* SearchTableView.swift */,
+				A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */,
+				A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */,
+				A57D21412939F589007BDCC8 /* SearchImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		5A9B52962936BFDC00B88214 /* MockData */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +167,7 @@
 		5AE1DECE2934F6D200665540 /* CookBook */ = {
 			isa = PBXGroup;
 			children = (
+				A528B7CD293668C2001812A4 /* SearchScreen */,
 				5AE1DEE9293509CE00665540 /* Models */,
 				5AE1DEEA293509DE00665540 /* Views */,
 				3732185A29381DBC000F7062 /* Cells + Compositional Layout */,
@@ -199,7 +212,6 @@
 				5A0B3A092942B4FB00C23625 /* IngredientsDataSource.swift */,
 				5A0B3A082942B4FB00C23625 /* InstructionsDataSource.swift */,
 				5A0B3A0C2942B60200C23625 /* DetailRecipeModel.swift */,
-				A528B7C829366291001812A4 /* SearchScreen */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,7 +219,6 @@
 		5AE1DEEA293509DE00665540 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A528B7CD293668C2001812A4 /* SearchScreen */,
 				4D765D062943909700A8C517 /* IngredientCell.swift */,
 				4D765D08294390A800A8C517 /* InstructionCell.swift */,
 			);
@@ -217,7 +228,6 @@
 		5AE1DEEB29350A0A00665540 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A528B7D629366F98001812A4 /* SearchScreen */,
 				5AE1DEF029351C6E00665540 /* OnboardingViewController.swift */,
 				5A563B2A293F00B900076C37 /* FavoriteViewController.swift */,
 				5AE1DEF429352A1500665540 /* MainViewController.swift */,
@@ -249,24 +259,22 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		A528B7C829366291001812A4 /* SearchScreen */ = {
+		A528B7C829366291001812A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				A528B7C9293662A0001812A4 /* SearchResults.swift */,
 				A528B7CB2936638F001812A4 /* SearchResult.swift */,
 				A5F571C6293E5C6900B4A7D1 /* SearchModel.swift */,
 			);
-			path = SearchScreen;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A528B7CD293668C2001812A4 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				A5286E7A293D1DD8006A641E /* SearchTableViewMiniCell.swift */,
-				A528B7C62936549A001812A4 /* SearchTableView.swift */,
-				A528B7CE293668E2001812A4 /* SearchTableViewCell.swift */,
-				A57D213F29390D81007BDCC8 /* ImageLabelStack.swift */,
-				A57D21412939F589007BDCC8 /* SearchImageView.swift */,
+				A528B7C429365419001812A4 /* SearchViewController.swift */,
+				A528B7C829366291001812A4 /* Model */,
+				5A855B0B2944DB0D005C5252 /* View */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -278,14 +286,6 @@
 				A528B7D429366AB2001812A4 /* UITableView+.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		A528B7D629366F98001812A4 /* SearchScreen */ = {
-			isa = PBXGroup;
-			children = (
-				A528B7C429365419001812A4 /* SearchViewController.swift */,
-			);
-			path = SearchScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

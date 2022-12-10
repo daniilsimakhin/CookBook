@@ -17,7 +17,6 @@ class PopularViewController: UIViewController {
     }()
     
     private var sections = CompMockData.shared.pageData
-    private var popularModel: PopularModel?
     private var vegan: [ListItem]?
     private var random: [ListItem]?
     private let loader = NetworkLoader(networkClient: NetworkClient())

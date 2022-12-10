@@ -27,10 +27,12 @@ class PopularViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshContent()
-        setupViews()
-        setConstraints()
-        setDelegates()
-        setupRefreshControl()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.setupViews()
+            self.setConstraints()
+            self.setDelegates()
+            self.setupRefreshControl()
+        }
     }
     
     private func setupViews() {

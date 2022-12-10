@@ -10,16 +10,23 @@ import UIKit
 final class FavoriteViewController: UIViewController {
     var tableView = UITableView()
     let dataSource: FavoriteRecipesDataSource = .init(favoriteRecipes: FavoriteRecipesStorage.shared.getFavoriteRecipes())
-
+    // Qewhouse >>>>>>
+     var initialImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "Text_Logo")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    //<<<<<< Qewhouse
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
         applyStyle()
         applyLayout()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dataSource.favoriteRecipes = FavoriteRecipesStorage.shared.getFavoriteRecipes()
@@ -31,20 +38,27 @@ final class FavoriteViewController: UIViewController {
 }
 
 private extension FavoriteViewController {
-
+    
     func setup() {
         setupTableView()
     }
-
+    
     func applyStyle() {
         title = "Favorite"
         view.backgroundColor = Theme.appColor
     }
-
+    
     func applyLayout() {
+        // Qewhouse >>>>>>
+        view.addSubview(initialImageView)
+        //<<<<<< Qewhouse
         view.addSubview(tableView)
-
+        
         NSLayoutConstraint.activate([
+            // Qewhouse >>>>>>
+            initialImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            initialImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            //<<<<<< Qewhouse
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -55,7 +69,9 @@ private extension FavoriteViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = dataSource
-        
+        // Qewhouse >>>>>>
+        tableView.backgroundColor = .clear
+        //<<<<<< Qewhouse
         tableView.register(SearchTableViewMiniCell.self, forCellReuseIdentifier: SearchTableViewMiniCell.reuseID)
         tableView.reloadData()
         

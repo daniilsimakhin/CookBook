@@ -120,6 +120,8 @@ extension DetailViewController{
     }
     
     private func applyStyle() {
+        view.backgroundColor = Theme.appColor
+        
         applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
         applyStyleToSwitchButton(for: instructionsButton, text: "Recipe")
         recipeTitle.text = recipe.title

@@ -18,8 +18,21 @@ struct RecipesData: Decodable {
         let readyInMinutes: Int?
         let servings: Int?
         let image: String?
+        let nutrition: Nutrition?
         let analyzedInstructions: [Instruction]?
         let spoonacularSourceUrl: String?
+    }
+    
+    struct Nutrition: Decodable {
+        let nutrients: [Flavonoid]?
+        let ingredients: [Ingredient]?
+    }
+    
+    struct Flavonoid: Decodable {
+        let name: String?
+        let amount: Double?
+        let unit: String?
+        let percentOfDailyNeeds: Double?
     }
     
     struct Instruction: Decodable {

@@ -111,10 +111,12 @@ extension SearchViewController: SearchTableViewDelegate {
     
     func didPressedCell(_ searchTableView: UITableView, by indexPath: IndexPath) {
         let dataProvider = RecipesProviderImpl()
-        dataProvider.loadRecipes { [weak self] result in
+        //dataProvider.loadRecipes { [weak self] result in
+        dataProvider.loadRecipe { [weak self] result in
             switch result {
             case let .success(model):
-                let recipe = convert(model.recipes[0])
+                //let recipe = convert(model.recipes[0])
+                let recipe = convert(model)
                 let vc = DetailViewController(with: recipe)
                 self?.navigationController?.pushViewController(vc, animated: true)
             case let .failure(error):
@@ -130,7 +132,7 @@ extension SearchViewController: SearchTableViewDelegate {
                 readyInMinutes: recipe.readyInMinutes,
                 servings: recipe.servings,
                 image: recipe.image,
-                calories: 100,
+                calories: recipe.calories,
                 ingredients: recipe.ingredients.map { res in
                         .init(image: res.image, original: res.original)
                 },

@@ -22,6 +22,10 @@ struct RecipesModelFromDataConverter {
         else {
             return nil
         }
+        var calories = 0
+        if let amount = data?.nutrition?.nutrients?[0].amount {
+            calories = Int(amount)
+        }
         return .init(
             id: id,
             title: title,
@@ -31,7 +35,8 @@ struct RecipesModelFromDataConverter {
             image: image,
             ingredients: ingredients,
             instructions: instructions,
-            spoonacularSourceUrl: spoonacularSourceUrl
+            spoonacularSourceUrl: spoonacularSourceUrl,
+            calories: calories
         )
     }
     

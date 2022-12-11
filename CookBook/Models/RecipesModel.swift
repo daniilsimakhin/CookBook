@@ -20,6 +20,7 @@ struct RecipesModel {
         let ingredients: [Ingredient]
         let instructions: [Instruction]
         let spoonacularSourceUrl: String
+        let calories: Int
     }
     
     struct Ingredient {

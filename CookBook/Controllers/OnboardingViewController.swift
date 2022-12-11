@@ -147,7 +147,7 @@ extension OnboardingViewController {
                 print(model.title)
                 print(model.readyInMinutes)
                 print(model.image)
-                print(model.instructions)
+                print(model.calories)
             case let .failure(error):
                 print(error)
             }

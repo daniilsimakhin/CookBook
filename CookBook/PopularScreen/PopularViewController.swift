@@ -19,7 +19,18 @@ class PopularViewController: UIViewController {
     private var sections = CompMockData.shared.pageData
     private var vegan: [ListItem]?
     private var random: [ListItem]?
+    
     private let loader = NetworkLoader(networkClient: NetworkClient())
+    
+    private var danseRandom = "D"
+    private var danseVegan = "E"
+    private var hasRefreshed: Bool = false {
+        didSet{
+            let danse = ["D", "A", "N", "S", "E"].shuffled()
+            danseRandom = danse[0]
+            danseVegan = danse[1]
+        }
+    }
     
     let refreshControl = UIRefreshControl()
     
@@ -60,7 +71,7 @@ class PopularViewController: UIViewController {
     }
     
     @objc func refreshContent() {
-        collectionView.reloadData()
+        hasRefreshed.toggle()
         fetchData()
     }
     
@@ -76,10 +87,12 @@ class PopularViewController: UIViewController {
         }
     }
     
+    
+    
     private func fetchRandom(group: DispatchGroup) {
         group.enter()
-        let danse = ["D", "A", "N", "S", "E"].randomElement()
-        loader.fetchSearchRecipes(router: .searchRequest(text: danse!, number: 10, offset: 0)) { [weak self] (result: Result<SearchResults, Error>) in
+        
+        loader.fetchSearchRecipes(router: .searchRequest(text: danseRandom, number: 10, offset: 0)) { [weak self] (result: Result<SearchResults, Error>) in
             switch result {
             case .success(let success):
                 let searchModels = success.results.map { result in
@@ -99,9 +112,9 @@ class PopularViewController: UIViewController {
     
     private func fetchVegan(group: DispatchGroup) {
         group.enter()
-        let tags = ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy"].randomElement()
-        let danse = ["D", "A", "N", "S", "E"].randomElement()
-        loader.fetchVegetarianRecipes(router: .randomVegetarianRequest(text: danse!, number: 10, offset: 0, tags: tags!)) { [weak self] (result: Result<SearchResults, Error>) in
+        let tags = ["vegetarian", "vegan", "glutenFree", "Paleo", "Seafood"].randomElement()
+        
+        loader.fetchVegetarianRecipes(router: .randomVegetarianRequest(text: danseVegan, number: 10, offset: 0, tags: tags!)) { [weak self] (result: Result<SearchResults, Error>) in
             switch result {
             case .success(let success):
                 let searchModels = success.results.map { result in
@@ -318,5 +331,25 @@ extension PopularViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+import SwiftUI
+struct ListProvider: PreviewProvider {
+    static var previews: some View {
+        ContainterView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainterView: UIViewControllerRepresentable {
+        let listVC = PopularViewController()
+        func makeUIViewController(context:
+                                  UIViewControllerRepresentableContext<ListProvider.ContainterView>) -> PopularViewController {
+            return listVC
+        }
+        
+        func updateUIViewController(_ uiViewController:
+                                    ListProvider.ContainterView.UIViewControllerType, context:
+                                    UIViewControllerRepresentableContext<ListProvider.ContainterView>) {
+        }
     }
 }

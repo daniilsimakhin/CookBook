@@ -20,22 +20,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Text_Logo" highlightedImage="Text_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="S9m-ZD-Fe9">
-                                <rect key="frame" x="35" y="252.66666666666669" width="344" height="166.66666666666669"/>
+                                <rect key="frame" x="0.0" y="252.66666666666669" width="414" height="166.66666666666669"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="dvc-ey-eGo" secondAttribute="bottom" id="2fs-lQ-9H7"/>
                             <constraint firstItem="dvc-ey-eGo" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="3A2-W9-P5F"/>
-                            <constraint firstItem="dvc-ey-eGo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3Ap-O5-NO4"/>
+                            <constraint firstItem="dvc-ey-eGo" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3Ap-O5-NO4"/>
                             <constraint firstItem="S9m-ZD-Fe9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8WV-Wh-oAe"/>
-                            <constraint firstAttribute="bottom" secondItem="dvc-ey-eGo" secondAttribute="bottom" id="9Ml-gE-ruP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S9m-ZD-Fe9" secondAttribute="trailing" constant="35" id="9od-lD-PtQ"/>
-                            <constraint firstAttribute="bottom" secondItem="dvc-ey-eGo" secondAttribute="bottom" id="Iaw-cG-QfN"/>
+                            <constraint firstAttribute="trailing" secondItem="S9m-ZD-Fe9" secondAttribute="trailing" id="9od-lD-PtQ"/>
                             <constraint firstItem="dvc-ey-eGo" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="XOj-hP-nrG"/>
                             <constraint firstItem="S9m-ZD-Fe9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="3:4" id="oLA-fV-lni"/>
-                            <constraint firstAttribute="bottom" secondItem="dvc-ey-eGo" secondAttribute="bottom" id="pP9-AO-Ncb"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dvc-ey-eGo" secondAttribute="trailing" id="qwF-hq-0sN"/>
-                            <constraint firstItem="S9m-ZD-Fe9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="r2h-lW-36r"/>
+                            <constraint firstItem="S9m-ZD-Fe9" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="r2h-lW-36r"/>
                         </constraints>
                     </view>
                 </viewController>

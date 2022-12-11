@@ -11,9 +11,10 @@ final class FavoriteViewController: UIViewController {
     var tableView = UITableView()
     let dataSource: FavoriteRecipesDataSource = .init(favoriteRecipes: FavoriteRecipesStorage.shared.getFavoriteRecipes())
     // Qewhouse >>>>>>
-     var initialImageView: UIImageView = {
+    var initialImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Text_Logo")
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -34,6 +35,13 @@ final class FavoriteViewController: UIViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+        // Qewhouse >>>>>>
+        if tableView.visibleCells.isEmpty {
+            tableView.backgroundColor = .clear
+        } else {
+            tableView.backgroundColor = Theme.appColor
+        }
+        //<<<<<< Qewhouse
     }
 }
 
@@ -56,7 +64,8 @@ private extension FavoriteViewController {
         
         NSLayoutConstraint.activate([
             // Qewhouse >>>>>>
-            initialImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            initialImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Theme.leftOffset),
+            initialImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Theme.leftOffset),
             initialImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             //<<<<<< Qewhouse
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -69,9 +78,6 @@ private extension FavoriteViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = dataSource
-        // Qewhouse >>>>>>
-        tableView.backgroundColor = .clear
-        //<<<<<< Qewhouse
         tableView.register(SearchTableViewMiniCell.self, forCellReuseIdentifier: SearchTableViewMiniCell.reuseID)
         tableView.reloadData()
         

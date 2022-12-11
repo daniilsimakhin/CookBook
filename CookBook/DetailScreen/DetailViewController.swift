@@ -123,6 +123,7 @@ extension DetailViewController{
     
     private func applyStyle() {
         view.backgroundColor = Theme.appColor
+        navigationController?.navigationBar.tintColor = Theme.cbGreen80
         
         applyStyleToSwitchButton(for: ingredientsButton, text: "Ingredients")
         applyStyleToSwitchButton(for: instructionsButton, text: "Recipe")

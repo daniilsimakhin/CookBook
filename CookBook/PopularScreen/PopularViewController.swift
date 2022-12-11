@@ -26,7 +26,9 @@ class PopularViewController: UIViewController {
     private var danseVegan = "E"
     private var hasRefreshed: Bool = false {
         didSet{
-            let danse = ["D", "A", "N", "S", "E"].shuffled()
+            let danse = ["D", "A", "N", "S", "E"]
+                .filter { $0 != danseRandom && $0 != danseVegan }
+                .shuffled()
             danseRandom = danse[0]
             danseVegan = danse[1]
         }
@@ -86,8 +88,6 @@ class PopularViewController: UIViewController {
             self.reloadView()
         }
     }
-    
-    
     
     private func fetchRandom(group: DispatchGroup) {
         group.enter()

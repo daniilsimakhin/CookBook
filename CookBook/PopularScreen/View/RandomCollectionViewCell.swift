@@ -11,6 +11,7 @@ class RandomCollectionViewCell: UICollectionViewCell {
     private let randomImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .secondarySystemBackground
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

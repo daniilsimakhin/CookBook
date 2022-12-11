@@ -13,23 +13,15 @@ struct CompMockData {
     
     private let vegan: ListSection = {
         .vegan([
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1)
+            .init(title: " ", image: "", id: 1),
+            .init(title: " ", image: "", id: 1),
         ])
     }()
     
     private let random: ListSection = {
         .random([
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1),
-            .init(title: " ", image: "https://img1.goodfon.ru/original/960x544/0/61/shum-tekstura-svet-seryy.jpg", id: 1)
+            .init(title: " ", image: "", id: 1),
+            .init(title: " ", image: "", id: 1),
         ])
     }()
     

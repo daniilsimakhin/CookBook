@@ -9,6 +9,8 @@ final class SearchViewController: UIViewController {
     private var searchText = ""
     private var searchModels: [SearchModel]?
     
+    private let loader = NetworkLoader(networkClient: NetworkClient())
+    
     private lazy var tableView: SearchTableView = {
         let view = SearchTableView(frame: view.frame, style: .plain)
         view.tableHeaderView = searchBar
@@ -110,20 +112,27 @@ extension SearchViewController: SearchTableViewDelegate {
     }
     
     func didPressedCell(_ searchTableView: UITableView, by indexPath: IndexPath) {
-        let dataProvider = RecipesProviderImpl()
-        //dataProvider.loadRecipes { [weak self] result in
-        dataProvider.loadRecipe { [weak self] result in
+        
+        guard let recipeID = searchModels?[indexPath.row].id else { return }
+        
+        loader.fetchRecipeBy(id: recipeID) { [weak self] (result: Result<RecipesData.Recipe, Error>) in
+            guard let self = self else { return }
             switch result {
-            case let .success(model):
-                //let recipe = convert(model.recipes[0])
-                let recipe = convert(model)
-                let vc = DetailViewController(with: recipe)
-                self?.navigationController?.pushViewController(vc, animated: true)
-            case let .failure(error):
-                print(error)
+            case .success(let success):
+                guard let preModel = RecipesModelFromDataConverter().convert(data: success) else {
+                    print("Error: converter failed")
+                    return
+                }
+                let recipe = convert(preModel)
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(with: recipe)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
-        
+
         func convert(_ recipe: RecipesModel.Recipe) -> DetailRecipeModel {
             .init(
                 id: recipe.id,

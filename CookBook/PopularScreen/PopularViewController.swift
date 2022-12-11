@@ -280,28 +280,40 @@ extension PopularViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print(sections[indexPath.section].items[indexPath.row].id)
-        
-        let recipe = convert(sections[indexPath.section].items[indexPath.row])
-        let vc = DetailViewController(with: recipe)
-        navigationController?.pushViewController(vc, animated: true)
-        
-        func convert(_ recipe: ListItem) -> DetailRecipeModel {
+        let recipeID = sections[indexPath.section].items[indexPath.row].id
+        loader.fetchRecipeBy(id: recipeID) { [weak self] (result: Result<RecipesData.Recipe, Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let success):
+                guard let preModel = RecipesModelFromDataConverter().convert(data: success) else {
+                    print("Error: converter failed")
+                    return
+                }
+                let recipe = convert(preModel)
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(with: recipe)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
+        func convert(_ recipe: RecipesModel.Recipe) -> DetailRecipeModel {
             .init(
                 id: recipe.id,
                 title: recipe.title,
-                aggregateLikes: 0,
-                readyInMinutes: 0,
-                servings: 0,
+                aggregateLikes: recipe.aggregateLikes,
+                readyInMinutes: recipe.readyInMinutes,
+                servings: recipe.servings,
                 image: recipe.image,
-                calories: 0,
-                ingredients: [
-                    .init(image: "butter-sliced.jpg", original: "2 tablespoon butter")
-                ],
-                steps: [
-                    .init(step: "test", minutes: 12)
-                ]
+                calories: recipe.calories,
+                ingredients: recipe.ingredients.map { res in
+                        .init(image: res.image, original: res.original)
+                },
+                steps: recipe.instructions.map { res in
+                        .init(step: res.step, minutes: res.minutes)
+                }
             )
         }
     }

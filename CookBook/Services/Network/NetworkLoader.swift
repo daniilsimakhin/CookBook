@@ -44,7 +44,8 @@ struct NetworkLoader {
     }
     
     func fetchRecipeBy<T: Decodable>(id: Int, completionHandler: @escaping (Result<T, Error>) -> ()) {
-        let stringUrl = "https://api.spoonacular.com/recipes/\(id)/information?apiKey=\(Secrets.apiKey)&includeNutrition=false"
+        let stringUrl = "https://api.spoonacular.com/recipes/\(id)/information?apiKey=\(Secrets.apiKey)&includeNutrition=true"
+        
         loadData(stringUrl) { (result: Result<T, Error>) in
             switch result {
             case .success(let data):

@@ -8,10 +8,13 @@
 import UIKit
 
 final class FavoriteViewController: UIViewController {
-    var tableView = UITableView()
-    let dataSource: FavoriteRecipesDataSource = .init(favoriteRecipes: FavoriteRecipesStorage.shared.getFavoriteRecipes())
+    private let tableView = UITableView()
+    private let dataSource: FavoriteRecipesDataSource = .init(favoriteRecipes: FavoriteRecipesStorage.shared.getFavoriteRecipes())
+    
+    private let loader = NetworkLoader(networkClient: NetworkClient())
+    
     // Qewhouse >>>>>>
-    var initialImageView: UIImageView = {
+    private let initialImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Text_Logo")
         imageView.contentMode = .scaleAspectFit
@@ -52,7 +55,6 @@ private extension FavoriteViewController {
     
     func applyStyle() {
         navigationItem.title = "Favorite"
-        view.backgroundColor = Theme.appColor
     }
     
     func applyLayout() {
@@ -87,25 +89,40 @@ private extension FavoriteViewController {
 // MARK: - UITableViewDelegate
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = convert(dataSource.favoriteRecipes[indexPath.row])
-        let vc = DetailViewController(with: recipe)
-        navigationController?.pushViewController(vc, animated: true)
-        
-        func convert(_ recipe: SearchModel) -> DetailRecipeModel {
+        let recipeID = dataSource.favoriteRecipes[indexPath.row].id
+        loader.fetchRecipeBy(id: recipeID) { [weak self] (result: Result<RecipesData.Recipe, Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let success):
+                guard let preModel = RecipesModelFromDataConverter().convert(data: success) else {
+                    print("Error: converter failed")
+                    return
+                }
+                let recipe = convert(preModel)
+                DispatchQueue.main.async {
+                    let vc = DetailViewController(with: recipe)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
+        func convert(_ recipe: RecipesModel.Recipe) -> DetailRecipeModel {
             .init(
                 id: recipe.id,
                 title: recipe.title,
                 aggregateLikes: recipe.aggregateLikes,
                 readyInMinutes: recipe.readyInMinutes,
-                servings: 3,
+                servings: recipe.servings,
                 image: recipe.image,
                 calories: recipe.calories,
-                ingredients: [
-                    .init(image: "butter-sliced.jpg", original: "2 tablespoon butter")
-                ],
-                steps: [
-                    .init(step: "test", minutes: 12)
-                ]
+                ingredients: recipe.ingredients.map { res in
+                        .init(image: res.image, original: res.original)
+                },
+                steps: recipe.instructions.map { res in
+                        .init(step: res.step, minutes: res.minutes)
+                }
             )
         }
     }

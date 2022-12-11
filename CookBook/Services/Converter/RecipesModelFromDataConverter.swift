@@ -67,7 +67,7 @@ struct RecipesModelFromDataConverter {
             let data = data,
             !data.isEmpty
         else {
-            return nil
+            return []
         }
         
         var instructions: [RecipesModel.Instruction] = []

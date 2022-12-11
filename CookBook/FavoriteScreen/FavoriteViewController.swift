@@ -31,17 +31,16 @@ final class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dataSource.favoriteRecipes = FavoriteRecipesStorage.shared.getFavoriteRecipes()
-        tableView.reloadData()
-        if let indexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
-        // Qewhouse >>>>>>
-        if tableView.visibleCells.isEmpty {
+        if dataSource.favoriteRecipes.isEmpty {
             tableView.backgroundColor = .clear
         } else {
             tableView.backgroundColor = Theme.appColor
+            tableView.reloadData()
         }
-        //<<<<<< Qewhouse
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 

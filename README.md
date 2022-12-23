@@ -37,12 +37,14 @@ CHALLENGE №2 “СookBook” by SWIFT MARATHON 5.0
 * MVC
 * POP
 * URLSession
-* UIDiffableDataSource
 
-## Description
+## My tasks
 * Building UI programmatically
-* Using UITableView
+* Using UITableView with UIDiffableDataSource
 * Passing data between ViewControllers
+* Image cache
+* Network client
+* Generics for cells, table and collection views
 * Pagination
 
 ## Requirements

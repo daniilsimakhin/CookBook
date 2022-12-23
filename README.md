@@ -9,6 +9,29 @@ CHALLENGE №2 “СookBook” by SWIFT MARATHON 5.0
 
 ## Demonstration
 
+<table>
+	<thead>
+		<tr>
+			<th>Launch</th>
+			<th>Search</th>
+      <th>Favorite</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<img src="https://user-images.githubusercontent.com/52642856/209332701-9f67175f-1eeb-455e-940a-de2d85068118.gif" width="300"/>
+			</td>
+			<td>
+				<img src="https://user-images.githubusercontent.com/52642856/209332961-8486710c-2150-4727-914f-819431b7e742.gif" width="300"/>
+			</td>
+      <td>
+				<img src="https://user-images.githubusercontent.com/52642856/209333174-355a938c-41ce-469e-9d05-6f6d071760b7.gif" width="300"/>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
 ## Technology stack
 * UIKit
 * MVC
@@ -20,6 +43,7 @@ CHALLENGE №2 “СookBook” by SWIFT MARATHON 5.0
 * Building UI programmatically
 * Using UITableView
 * Passing data between ViewControllers
+* Pagination
 
 ## Requirements
 * iOS 14.0+

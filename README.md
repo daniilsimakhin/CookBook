@@ -14,7 +14,6 @@ CHALLENGE №2 “СookBook” by SWIFT MARATHON 5.0
 		<tr>
 			<th>Launch</th>
 			<th>Search</th>
-      <th>Favorite</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -25,8 +24,24 @@ CHALLENGE №2 “СookBook” by SWIFT MARATHON 5.0
 			<td>
 				<img src="https://user-images.githubusercontent.com/52642856/209332961-8486710c-2150-4727-914f-819431b7e742.gif" width="300"/>
 			</td>
+		</tr>
+	</tbody>
+</table>
+
+<table>
+	<thead>
+		<tr>
+			<th>Favorite</th>
+      <th>Detail</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
       <td>
 				<img src="https://user-images.githubusercontent.com/52642856/209333174-355a938c-41ce-469e-9d05-6f6d071760b7.gif" width="300"/>
+			</td>
+			<td>
+				<img src="https://user-images.githubusercontent.com/52642856/209334050-2bdb951f-4b5f-4e28-a39d-b83f63129f12.gif" width="300"/>
 			</td>
 		</tr>
 	</tbody>

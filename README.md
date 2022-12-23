@@ -7,24 +7,19 @@ CHALLENGE №2 “СookBook” by SWIFT MARATHON 5.0
 
 [IN PROGRESS]
 
-## Preview
-...
+## Demonstration
 
 ## Technology stack
 * UIKit
 * MVC
-* ...
+* POP
+* URLSession
+* UIDiffableDataSource
 
 ## Description
 * Building UI programmatically
 * Using UITableView
 * Passing data between ViewControllers
-
-## Backlog
-...
-
-## Resources
-...
 
 ## Requirements
 * iOS 14.0+
